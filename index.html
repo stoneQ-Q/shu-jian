@@ -469,26 +469,18 @@ function buildObsidianNote(card, book){
   const meta = INSIGHT_META[card.type] || INSIGHT_META.concept;
   const dateStr = new Date(card.createdAt).toISOString().slice(0,10);
   const bookTitle = book ? book.title : '未命名';
-  const noteName = sanitizeFileName(dateStr + ' ' + bookTitle + ' - ' + meta.label + ' ' + card.id.slice(-5));
+  const noteName = sanitizeFileName(bookTitle);
 
-  const tagList = ['书鉴', meta.label, ...(card.tags||[])];
-  const frontmatter = '---\n' +
-    'book: "' + bookTitle.replace(/"/g,'\\"') + '"\n' +
-    'type: ' + card.type + '\n' +
-    'date: ' + dateStr + '\n' +
-    'tags: [' + tagList.map(t=>'"'+String(t).replace(/"/g,'\\"')+'"').join(', ') + ']\n' +
-    '---\n\n';
-
-  let content = frontmatter;
-  content += '来自《[[' + bookTitle + ']]》\n\n';
-  content += '**' + meta.label + '**\n\n' + card.content + '\n\n';
+  let content = '## ' + meta.label + ' · ' + dateStr + '\n\n';
+  content += card.content + '\n\n';
   if(card.tags && card.tags.length) content += card.tags.map(t=>'#'+t.replace(/\s+/g,'')).join(' ') + '\n\n';
   if(card.contextSnippet && card.contextSnippet.length){
-    content += '---\n相关对话：\n\n';
+    content += '相关对话：\n\n';
     card.contextSnippet.forEach(m=>{
       content += (m.role==='assistant'?'AI':'我') + '：' + m.content + '\n\n';
     });
   }
+  content += '---\n\n';
   return {noteName, content};
 }
 
@@ -511,7 +503,7 @@ async function sendToObsidian(card, book){
   const url = 'obsidian://new?vault=' + encodeURIComponent(settings.obsidianVault) +
     locationParam +
     '&content=' + encodeURIComponent(content) +
-    '&overwrite';
+    '&append';
 
   if(url.length > 2000){
     try{
@@ -1403,20 +1395,6 @@ function renderSettingsOverlay(){
   modal.appendChild(obFolderField);
 
   modal.appendChild(el('div', {class:'hint', text:'手机上要装了 Obsidian App 才会跳转成功；在电脑浏览器里点"发到 Obsidian"大概率没反应，是正常的。'}));
-  modal.appendChild(el('button', {class:'link-btn', text:'测试 Obsidian 跳转带内容', onclick:()=>{
-    const vault = obInput.value.trim();
-    if(!vault){ alert('先填库名再测试'); return; }
-    const testUrl = 'obsidian://new?vault=' + encodeURIComponent(vault) +
-      '&name=' + encodeURIComponent('书鉴跳转测试') +
-      '&content=' + encodeURIComponent('你好，这是内容测试 ' + Date.now()) +
-      '&overwrite';
-    const a = document.createElement('a');
-    a.href = testUrl;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }}));
-  modal.appendChild(el('div', {class:'hint', text:'点上面这个会跳一个叫"书鉴跳转测试"的极简笔记过去，看看里面有没有"你好，这是内容测试"这句话——用来排查是不是content参数传丢了。'}));
 
   const wereadField = el('div', {class:'field'});
   wereadField.appendChild(el('label', {text:'微信读书 API Key（用于同步划线笔记）'}));
