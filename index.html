@@ -1393,6 +1393,20 @@ function renderSettingsOverlay(){
   obField.appendChild(obInput);
   modal.appendChild(obField);
   modal.appendChild(el('div', {class:'hint', text:'手机上要装了 Obsidian App 才会跳转成功；在电脑浏览器里点"发到 Obsidian"大概率没反应，是正常的。'}));
+  modal.appendChild(el('button', {class:'link-btn', text:'测试 Obsidian 跳转带内容', onclick:()=>{
+    const vault = obInput.value.trim();
+    if(!vault){ alert('先填库名再测试'); return; }
+    const testUrl = 'obsidian://new?vault=' + encodeURIComponent(vault) +
+      '&name=' + encodeURIComponent('书鉴跳转测试') +
+      '&content=' + encodeURIComponent('你好，这是内容测试 ' + Date.now()) +
+      '&overwrite';
+    const a = document.createElement('a');
+    a.href = testUrl;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }}));
+  modal.appendChild(el('div', {class:'hint', text:'点上面这个会跳一个叫"书鉴跳转测试"的极简笔记过去，看看里面有没有"你好，这是内容测试"这句话——用来排查是不是content参数传丢了。'}));
 
   const wereadField = el('div', {class:'field'});
   wereadField.appendChild(el('label', {text:'微信读书 API Key（用于同步划线笔记）'}));
