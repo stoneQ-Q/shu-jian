@@ -259,7 +259,7 @@ const STATIC_CHECKS = {
 };
 
 let appData = {books:[], cards:[]};
-let settings = {proxyUrl:'', obsidianVault:'', wereadKey:''};
+let settings = {proxyUrl:'', obsidianVault:'', obsidianFolder:'', wereadKey:''};
 let state = {
   view:'home',
   bookFilterType:'all',
@@ -289,7 +289,7 @@ async function loadData(){
     const rawSettings = localStorage.getItem('shu-jian-settings');
     if(rawSettings) settings = JSON.parse(rawSettings);
   }catch(e){
-    settings = {proxyUrl:'', obsidianVault:'', wereadKey:''};
+    settings = {proxyUrl:'', obsidianVault:'', obsidianFolder:'', wereadKey:''};
   }
   render();
 }
@@ -506,8 +506,10 @@ async function sendToObsidian(card, book){
   if(!settings.obsidianVault){ alert('先在设置里填 Obsidian 库名'); return; }
   const {noteName, content} = buildObsidianNote(card, book);
 
+  const folder = (settings.obsidianFolder || '').trim().replace(/^\/+|\/+$/g, '');
+  const locationParam = folder ? ('&file=' + encodeURIComponent(folder + '/' + noteName)) : ('&name=' + encodeURIComponent(noteName));
   const url = 'obsidian://new?vault=' + encodeURIComponent(settings.obsidianVault) +
-    '&name=' + encodeURIComponent(noteName) +
+    locationParam +
     '&content=' + encodeURIComponent(content) +
     '&overwrite';
 
@@ -1392,6 +1394,14 @@ function renderSettingsOverlay(){
   obInput.value = settings.obsidianVault || '';
   obField.appendChild(obInput);
   modal.appendChild(obField);
+
+  const obFolderField = el('div', {class:'field'});
+  obFolderField.appendChild(el('label', {text:'Obsidian 存放文件夹（可不填）'}));
+  const obFolderInput = el('input', {attrs:{type:'text', placeholder:'比如：书鉴笔记，留空就存到默认位置'}});
+  obFolderInput.value = settings.obsidianFolder || '';
+  obFolderField.appendChild(obFolderInput);
+  modal.appendChild(obFolderField);
+
   modal.appendChild(el('div', {class:'hint', text:'手机上要装了 Obsidian App 才会跳转成功；在电脑浏览器里点"发到 Obsidian"大概率没反应，是正常的。'}));
   modal.appendChild(el('button', {class:'link-btn', text:'测试 Obsidian 跳转带内容', onclick:()=>{
     const vault = obInput.value.trim();
@@ -1432,6 +1442,7 @@ function renderSettingsOverlay(){
   btnRow.appendChild(el('button', {class:'btn seal small', text:'保存', onclick:()=>{
     settings.proxyUrl = input.value.trim();
     settings.obsidianVault = obInput.value.trim();
+    settings.obsidianFolder = obFolderInput.value.trim();
     settings.wereadKey = wereadInput.value.trim();
     saveSettings();
     state.showSettings = false;
