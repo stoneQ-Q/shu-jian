@@ -465,8 +465,7 @@ function sanitizeFileName(name){
   return name.replace(/[\\/:*?"<>|]/g, '-').trim();
 }
 
-async function sendToObsidian(card, book){
-  if(!settings.obsidianVault){ alert('先在设置里填 Obsidian 库名'); return; }
+function buildObsidianNote(card, book){
   const meta = INSIGHT_META[card.type] || INSIGHT_META.concept;
   const dateStr = new Date(card.createdAt).toISOString().slice(0,10);
   const bookTitle = book ? book.title : '未命名';
@@ -490,12 +489,29 @@ async function sendToObsidian(card, book){
       content += (m.role==='assistant'?'AI':'我') + '：' + m.content + '\n\n';
     });
   }
+  return {noteName, content};
+}
+
+async function copyObsidianNote(card, book){
+  const {content} = buildObsidianNote(card, book);
+  try{
+    await navigator.clipboard.writeText(content);
+    alert('已复制，去 Obsidian 里新建一篇笔记粘贴就行。');
+  }catch(e){
+    alert('复制失败，浏览器可能不支持：' + e);
+  }
+}
+
+async function sendToObsidian(card, book){
+  if(!settings.obsidianVault){ alert('先在设置里填 Obsidian 库名'); return; }
+  const {noteName, content} = buildObsidianNote(card, book);
 
   const url = 'obsidian://new?vault=' + encodeURIComponent(settings.obsidianVault) +
     '&name=' + encodeURIComponent(noteName) +
-    '&content=' + encodeURIComponent(content);
+    '&content=' + encodeURIComponent(content) +
+    '&overwrite';
 
-  if(url.length > 6000){
+  if(url.length > 2000){
     try{
       await navigator.clipboard.writeText(content);
       alert('这条内容比较长，直接跳转可能会失败，已经把内容复制到剪贴板：去 Obsidian 里新建一篇笔记，粘贴进去就行。');
@@ -504,7 +520,12 @@ async function sendToObsidian(card, book){
     }
     return;
   }
-  window.location.href = url;
+  const a = document.createElement('a');
+  a.href = url;
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 async function quickCaptureWereadNote(note, book){
@@ -1561,7 +1582,11 @@ function openCardModal(cardId){
   (c.tags||[]).forEach(t=> tagRow.appendChild(el('span', {class:'tag-pill', text:t})));
   modal.appendChild(tagRow);
 
-  modal.appendChild(el('button', {class:'btn secondary small', text:'发到 Obsidian', style:'margin-top:16px;', onclick:()=>sendToObsidian(c, book)}));
+  const obsidianRow = el('div', {style:'display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;'});
+  obsidianRow.appendChild(el('button', {class:'btn secondary small', text:'发到 Obsidian', onclick:()=>sendToObsidian(c, book)}));
+  obsidianRow.appendChild(el('button', {class:'btn secondary small', text:'复制笔记内容', onclick:()=>copyObsidianNote(c, book)}));
+  modal.appendChild(obsidianRow);
+  modal.appendChild(el('div', {class:'hint', text:'"发到 Obsidian"跳转如果没内容，用"复制笔记内容"这个保底——复制后去 Obsidian 里新建笔记粘贴就行。', style:'margin-top:4px;'}));
 
   const footerRow = el('div', {style:'display:flex;justify-content:space-between;margin-top:16px;'});
   footerRow.appendChild(el('button', {class:'link-btn', text:'删除这张卡片', onclick: async ()=>{
