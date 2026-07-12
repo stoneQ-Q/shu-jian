@@ -40,12 +40,10 @@ body{
   *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
 }
 
-/* ---------- typography ---------- */
 h1,h2,h3{font-family:'Noto Serif SC','Noto Serif',serif;font-weight:700;margin:0;color:var(--ink);}
 .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.01em;}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);}
 
-/* ---------- header ---------- */
 .topbar{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:10px;}
 .brand{display:flex;align-items:baseline;gap:12px;}
 .brand h1{font-size:30px;letter-spacing:0.02em;}
@@ -61,7 +59,6 @@ h1,h2,h3{font-family:'Noto Serif SC','Noto Serif',serif;font-weight:700;margin:0
 
 .divider{border:none;border-top:1px solid var(--line);margin:18px 0 22px;}
 
-/* ---------- nav ---------- */
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px;}
 .tab-btn{
   font-family:'IBM Plex Mono',monospace;font-size:12px;
@@ -72,7 +69,6 @@ h1,h2,h3{font-family:'Noto Serif SC','Noto Serif',serif;font-weight:700;margin:0
 .tab-btn:hover{background:rgba(43,38,32,0.05);}
 .tab-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
-/* ---------- buttons ---------- */
 .btn{
   font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
   padding:10px 18px;border-radius:6px;border:1px solid var(--ink);
@@ -87,18 +83,17 @@ h1,h2,h3{font-family:'Noto Serif SC','Noto Serif',serif;font-weight:700;margin:0
 .btn:disabled{opacity:0.4;cursor:not-allowed;}
 .btn.small{padding:6px 12px;font-size:12.5px;}
 .link-btn{
-  background:none;border:none;color:var(--ink-soft);font-size:12.5px;
+  -webkit-appearance:none;appearance:none;
+  background:none;border:none;color:var(--ink-soft);font-size:12.5px;line-height:1.4;
   text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px 0;
-  font-family:'Inter',sans-serif;
+  font-family:'Inter',sans-serif;vertical-align:baseline;
 }
 .link-btn:hover{color:var(--ink);}
 
-/* ---------- section headers ---------- */
 .section-head{display:flex;align-items:center;justify-content:space-between;margin:32px 0 14px;}
 .section-head h2{font-size:17px;}
 .section-head .count{color:var(--ink-faint);font-size:12px;font-family:'IBM Plex Mono',monospace;}
 
-/* ---------- book row (spine style) ---------- */
 .book-row{
   display:flex;align-items:center;gap:14px;
   padding:14px 16px;border-radius:8px;background:var(--paper-raised);
@@ -120,16 +115,10 @@ h1,h2,h3{font-family:'Noto Serif SC','Noto Serif',serif;font-weight:700;margin:0
   border:1px dashed var(--line-strong);border-radius:8px;background:var(--paper-raised);
 }
 
-/* ---------- index card ---------- */
 .index-card{
   background:var(--paper-raised);border:1px solid var(--line);border-radius:6px;
   padding:16px 16px 14px;margin-bottom:10px;box-shadow:var(--shadow);
   position:relative;cursor:pointer;
-}
-.index-card::before{
-  content:'';position:absolute;top:0;left:16px;right:16px;height:1px;
-  background-image:radial-gradient(circle, var(--paper) 1.4px, transparent 1.5px);
-  background-size:8px 1px;top:-1px;
 }
 .card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .seal-badge{
@@ -146,7 +135,6 @@ h1,h2,h3{font-family:'Noto Serif SC','Noto Serif',serif;font-weight:700;margin:0
 .status-pending{background:rgba(166,119,44,0.15);color:var(--practical);}
 .status-validated{background:rgba(74,103,65,0.15);color:var(--narrative);}
 
-/* ---------- search ---------- */
 .search-box{
   display:flex;align-items:center;gap:8px;background:var(--paper-raised);
   border:1px solid var(--line-strong);border-radius:20px;padding:8px 14px;margin-bottom:16px;
@@ -154,7 +142,6 @@ h1,h2,h3{font-family:'Noto Serif SC','Noto Serif',serif;font-weight:700;margin:0
 .search-box input{border:none;background:none;outline:none;font-size:13.5px;flex:1;color:var(--ink);font-family:'Inter',sans-serif;}
 .search-box input::placeholder{color:var(--ink-faint);}
 
-/* ---------- forms ---------- */
 label{display:block;font-size:12.5px;color:var(--ink-soft);margin-bottom:6px;font-family:'IBM Plex Mono',monospace;}
 input[type=text], textarea{
   width:100%;border:1px solid var(--line-strong);border-radius:6px;background:var(--paper-raised);
@@ -165,9 +152,8 @@ input[type=text]:focus, textarea:focus{outline:none;border-color:var(--seal);}
 .field{margin-bottom:18px;}
 .hint{font-size:12.5px;color:var(--ink-soft);margin-bottom:8px;line-height:1.5;}
 
-/* ---------- type picker ---------- */
 .type-picker{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;}
-@media (max-width:640px){.type-picker{grid-template-columns:1fr;}}
+@media (max-width:640px){.type-picker{grid-template-columns:1fr 1fr;}}
 .type-card{
   border:1.5px solid var(--line-strong);border-radius:8px;padding:14px;cursor:pointer;
   background:var(--paper-raised);transition:border-color .15s;
@@ -177,22 +163,6 @@ input[type=text]:focus, textarea:focus{outline:none;border-color:var(--seal);}
 .type-card .tc-title{font-family:'Noto Serif SC',serif;font-weight:600;font-size:14.5px;}
 .type-card .tc-desc{font-size:12px;color:var(--ink-soft);line-height:1.5;}
 
-/* ---------- session stepper ---------- */
-.step-progress{display:flex;gap:5px;margin-bottom:20px;}
-.step-dot{height:4px;flex:1;border-radius:2px;background:var(--line-strong);}
-.step-dot.active{background:var(--seal);}
-.step-dot.filled{background:var(--ink-faint);}
-.step-label{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:600;margin-bottom:4px;}
-.followup-box{
-  margin-top:12px;padding:12px 14px;border-radius:6px;background:rgba(178,58,46,0.06);
-  border-left:3px solid var(--seal);font-size:13.5px;line-height:1.6;color:var(--ink);
-}
-.followup-box .fu-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--seal);
-  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px;}
-.loading-dots{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);}
-.step-actions{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap;}
-
-/* ---------- recall box ---------- */
 .recall-box{
   border:1px solid var(--line-strong);border-radius:8px;padding:16px;margin-bottom:22px;
   background:linear-gradient(135deg, rgba(178,58,46,0.04), transparent);
@@ -200,7 +170,6 @@ input[type=text]:focus, textarea:focus{outline:none;border-color:var(--seal);}
 .recall-box .rb-title{font-family:'Noto Serif SC',serif;font-weight:600;font-size:14.5px;margin-bottom:8px;}
 .reveal-panel{margin-top:12px;padding:12px 14px;border-radius:6px;background:var(--paper-raised);border:1px solid var(--line);}
 
-/* ---------- tag chips select ---------- */
 .chip-select{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
 .chip{
   padding:6px 13px;border-radius:16px;border:1px solid var(--line-strong);font-size:12.5px;
@@ -208,7 +177,6 @@ input[type=text]:focus, textarea:focus{outline:none;border-color:var(--seal);}
 }
 .chip.selected{background:var(--ink);border-color:var(--ink);color:var(--paper);}
 
-/* ---------- misc ---------- */
 .back-link{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);
   background:none;border:none;cursor:pointer;padding:0 0 14px;display:inline-flex;align-items:center;gap:5px;}
 .back-link:hover{color:var(--ink);}
@@ -222,6 +190,19 @@ input[type=text]:focus, textarea:focus{outline:none;border-color:var(--seal);}
   display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto;
 }
 .modal{background:var(--paper);border-radius:10px;max-width:520px;width:100%;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.25);}
+
+.chat-box{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.chat-bubble{padding:11px 15px;border-radius:14px;font-size:14.5px;line-height:1.6;max-width:85%;white-space:pre-wrap;}
+.bubble-ai{background:var(--paper-raised);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px;}
+.bubble-user{background:var(--ink);color:var(--paper);align-self:flex-end;border-bottom-right-radius:4px;}
+.bubble-check{background:rgba(178,58,46,0.06);border-left:3px solid var(--seal);align-self:flex-start;
+  font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);border-radius:6px;max-width:90%;padding:9px 13px;}
+.bubble-loading{opacity:0.5;font-family:'IBM Plex Mono',monospace;}
+.chat-input-row{display:flex;flex-direction:column;gap:8px;}
+.chat-input-row textarea{width:100%;}
+.chat-actions-row{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+.chat-actions-left{display:flex;gap:8px;}
+.step-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
 </style>
 </head>
 <body>
@@ -231,85 +212,58 @@ input[type=text]:focus, textarea:focus{outline:none;border-color:var(--seal);}
 const STORAGE_KEY = 'reading-system-v1';
 
 const TYPE_META = {
-  narrative:{label:'叙事类', char:'史', color:'var(--narrative)', hex:'#4A6741', desc:'历史 / 传记 —— 检验能不能讲清因果'},
-  social:{label:'社科类', char:'社', color:'var(--social)', hex:'#3B5A7A', desc:'理论 / 论证 —— 检验能不能戳破或撑住'},
-  practical:{label:'工具书类', char:'具', color:'var(--practical)', hex:'#A6772C', desc:'方法论 / 技能 —— 检验能不能做出来'}
+  narrative:{label:'叙事类', char:'史', hex:'#4A6741', desc:'历史 / 传记 —— 聊因果、聊转折'},
+  social:{label:'社科类', char:'社', hex:'#3B5A7A', desc:'理论 / 论证 —— 聊证据、聊边界'},
+  practical:{label:'工具书类', char:'具', hex:'#A6772C', desc:'方法论 / 技能 —— 聊能不能用'},
+  novel:{label:'小说类', char:'说', hex:'#7A4B8A', desc:'虚构故事 —— 聊哪里写得好、好在哪'}
 };
 
-const STEP_CONFIGS = {
-  narrative:[
-    {key:'retell', label:'复述故事', hint:'把上面的碎片串成一段话：起因、关键决定、转折点、结果。串不起来也没关系，先按顺序把记得的碎片列出来就行，不用一步到位讲成完整故事。', placeholder:'从头讲起…'},
-    {key:'counterfactual', label:'反事实追问', hint:'挑一个关键决定，想想"如果当时换个选择会怎样"。', placeholder:'如果他没有…结果可能会…'},
-    {key:'principle', label:'提炼一句道理', hint:'用一句话说出这个故事背后的规律，别写正确的废话。', placeholder:'比如：权力真空期最危险的是…'},
-    {key:'application', label:'类比到自己的处境', hint:'生活 / 工作里，什么情况像这个故事？', placeholder:'下次遇到…的时候，我可以想起…'}
-  ],
-  social:[
-    {key:'claim', label:'核心主张', hint:'一句话概括作者的主张，以及支撑它的证据或机制。', placeholder:'作者认为…因为…'},
-    {key:'plain', label:'讲给外行听', hint:'不用书里的术语，讲给一个完全不懂的人听。', placeholder:'简单来说就是…'},
-    {key:'boundary', label:'边界条件', hint:'这个理论在什么情况下不成立？有没有反例？', placeholder:'但如果…这个理论可能就不适用了'},
-    {key:'principle', label:'对照经验，写下判断', hint:'你自己的经历支持还是反驳这个理论？', placeholder:'我自己遇到过…所以我认为…'}
-  ],
-  practical:[
-    {key:'framework', label:'提炼框架', hint:'把方法拆成几个可执行的步骤。', placeholder:'第一步…第二步…'},
-    {key:'applyPlan', label:'找一个真实问题去试', hint:'当下有什么真实存在的问题，可以立刻拿这个方法试一次？', placeholder:'我打算用这个方法解决…'},
-    {key:'principle', label:'目前的心得', hint:'先写下你认为最关键的一点，实践后可以回来修改。', placeholder:'目前看最关键的是…'}
-  ]
+const INSIGHT_META = {
+  concept:{label:'概念', char:'概', hex:'#5B6B7C', desc:'一个概念，你现在有了自己的理解'},
+  story:{label:'故事', char:'事', hex:'#8C6A4F', desc:'你的某段经历，被这段内容照见了'},
+  flash:{label:'闪回', char:'光', hex:'#C99A3A', desc:'经历和内容对上的瞬间，冒出新认识'},
+  resonance:{label:'共振', char:'感', hex:'#B23A2E', desc:'单纯被打动、戳中的一刻'},
+  lesson:{label:'心得', char:'用', hex:'#4A6741', desc:'能直接用在生活/工作里的方法或判断'},
+  question:{label:'悬题', char:'问', hex:'#6B5B95', desc:'现在还没想通，想带着往下走的问题'}
 };
 
 const TAG_OPTIONS = ['工作','带娃','创作','学习','决策','人际','其他'];
 
-const PROMPTS = {
-  narrative:{
-    retell:t=>`你是一个只做一件事的追问者：检验别人是否真的读懂一个历史故事。对方复述了这个故事：\n"""${t}"""\n只输出一句追问（不超过40字），指出复述中最可能含糊或跳过的一个因果环节（比如某个人物的动机、某个转折为什么会发生），用问句形式追问。不要解释，不要客套，不要给答案。`,
-    counterfactual:t=>`对方对一个历史故事做了反事实推演：\n"""${t}"""\n只输出一句追问（不超过40字），检验这个推演是真想清楚了因果机制、还是空想。如果太表面，直接指出哪里表面。不要客套，不要给答案。`,
-    principle:t=>`对方从一个历史故事里提炼出这句道理：\n"""${t}"""\n如果是"要坚持""要努力"这类正确的废话，指出并追问一个更具体的版本（不超过40字）；如果已经够具体，就追问它的适用边界。不要客套。`,
-    application:t=>`对方想把一个历史故事的道理用到自己的生活/工作里：\n"""${t}"""\n只输出一句追问（不超过40字），检验这个类比是否具体可执行，还是流于泛泛而谈。不要客套，不要给答案。`
-  },
-  social:{
-    claim:t=>`对方概括了一本社科书的核心主张：\n"""${t}"""\n只输出一句追问（不超过40字），检验支撑这个主张的证据或机制是否讲清楚了，还是只停留在结论层面。不要客套。`,
-    plain:t=>`对方尝试用大白话给外行讲一个理论：\n"""${t}"""\n只输出一句追问（不超过40字），指出是否偷偷用了没解释的术语或抽象词；如果讲得够简单，就追问一个"举个例子"式的问题。不要客套。`,
-    boundary:t=>`对方在想一个理论的适用边界：\n"""${t}"""\n如果对方说"没有例外"或答得很空，追问逼他想一个具体反例（不超过40字）；如果已给出例外，追问这个例外是特殊情况、还是说明理论本身有问题。不要客套。`,
-    principle:t=>`对方在对照自己的真实经历检验一个理论：\n"""${t}"""\n只输出一句追问（不超过40字），检验这个对照是否具体，还是只是在附和理论。不要客套。`
-  },
-  practical:{
-    framework:t=>`对方从一本工具书里提炼了方法/框架：\n"""${t}"""\n只输出一句追问（不超过40字），检验这些步骤是否真的可执行，还是停留在概念层面。不要客套。`,
-    applyPlan:t=>`对方打算把一个方法用到一个真实问题上：\n"""${t}"""\n只输出一句追问（不超过40字），检验这个计划是否具体到"今天/本周就能做"，还是仍然含糊。不要客套。`,
-    principle:t=>`对方写下了目前为止最有用的一条心得：\n"""${t}"""\n只输出一句追问（不超过40字），提醒他实践之后要回来验证这一点是否真的成立。不要客套。`
-  }
+const SYSTEM_PROMPTS = {
+  narrative:'你在和一个正在读历史书/传记的人随口聊他刚读的内容，像感兴趣的朋友一样追问，目标是自然地把因果链条问清楚——谁做了什么决定、为什么、转折点在哪。每次只问一句话，最多两句，不要总结、不要说教、不要用列表或书名号。',
+  social:'你在和一个正在读社科/论证类书籍的人随口聊他刚读的内容，像感兴趣的朋友一样追问，目标是自然地检验他对理论的理解——证据讲清楚了吗、有没有偷用术语、这个理论的适用边界在哪。每次只问一句话，最多两句，不要总结、不要说教、不要用列表。',
+  practical:'你在和一个正在读方法论/工具书的人随口聊他刚读的内容，像感兴趣的朋友一样追问，目标是自然地检验这些方法是否真的可执行、他打算怎么用在真实问题上。每次只问一句话，最多两句，不要总结、不要说教、不要用列表。',
+  novel:'你在和一个正在读小说的人随口聊他刚读的内容，像懂行的书友一样追问。对方经常会说"这段写得真好"但说不清好在哪，你的目标是帮他把这种直觉拆具体——是情节设计、人物弧光、语言节奏、氛围营造，还是某个细节戳中了他，也欢迎他单纯复述剧情或吐槽。每次只问一句话，最多两句，不要总结、不要说教、不要用列表或剧透接下来的情节。'
+};
+
+const OPENING_STATIC = {
+  narrative:'最近读到哪儿了？有没有哪个地方让你觉得意外，或者哪个人做了个让你没想到的决定？',
+  social:'这本书目前最让你觉得"对，就是这样"或者"这我不信"的一个说法是什么？',
+  practical:'书里现在讲的方法，你觉得哪一条最像是能直接用的？',
+  novel:'最近读到哪儿了？有没有哪一段让你觉得"写得真好"，但一时说不出好在哪？'
 };
 
 const STATIC_CHECKS = {
-  narrative:{
-    retell:'自查：有没有跳过某个人物为什么这么做？转折点讲清楚了吗？',
-    counterfactual:'自查：这个"如果"是真想过因果，还是随口一说？',
-    principle:'自查：这句话换成任何一个故事都成立吗？如果是，说明还不够具体。',
-    application:'自查：这个类比具体到能想起是哪件事，还是很笼统？'
-  },
-  social:{
-    claim:'自查：证据/机制讲清楚了，还是只讲了结论？',
-    plain:'自查：这段话里有没有偷偷用了没解释的词？',
-    boundary:'自查：真的想不出反例，还是懒得想？',
-    principle:'自查：这个判断有具体经历支撑，还是在附和理论？'
-  },
-  practical:{
-    framework:'自查：这几步现在就能照着做，还是还停留在概念？',
-    applyPlan:'自查：这个计划具体到"今天/本周"了吗？',
-    principle:'自查：实践之后记得回来更新这条心得。'
-  }
+  narrative:['有没有漏掉某个人为什么这么做？','这个转折点你自己能讲清楚原因吗？','这句心得换成别的故事也成立吗？如果是，还不够具体。'],
+  social:['证据或机制你讲清楚了，还是只讲了结论？','有没有偷偷用了没解释的词？','真的想不出反例，还是懒得想？'],
+  practical:['这一步现在就能照着做，还是还停留在概念？','具体到"今天/本周"了吗？','这个方法有没有可能只是听起来对？'],
+  novel:['这个"好"具体是好在情节、人物、语言，还是氛围？','换个写法或者换个人物说这句话，你还会觉得好吗？','是这一段本身好，还是前面的铺垫让这一段好？']
 };
 
 let appData = {books:[], cards:[]};
-let settings = {proxyUrl:''};
+let settings = {proxyUrl:'', obsidianVault:'', wereadKey:''};
 let state = {
   view:'home',
-  filterType:'all',
+  bookFilterType:'all',
+  cardFilterType:'all',
   currentBookId:null,
   librarySearch:'',
-  session:null, // {bookId, type, stepIndex, answers:{}, followups:{}}
+  session:null,
   recallRevealed:false,
-  tagDraft:[],
-  showTagging:false,
   showSettings:false,
+  showInsightCapture:false,
+  insightTypeDraft:null,
+  insightTagDraft:[],
 };
 
 async function loadData(){
@@ -327,33 +281,9 @@ async function loadData(){
     const rawSettings = localStorage.getItem('shu-jian-settings');
     if(rawSettings) settings = JSON.parse(rawSettings);
   }catch(e){
-    settings = {proxyUrl:''};
+    settings = {proxyUrl:'', obsidianVault:'', wereadKey:''};
   }
   render();
-}
-
-function saveSettings(){
-  try{
-    localStorage.setItem('shu-jian-settings', JSON.stringify(settings));
-  }catch(e){
-    console.error('设置保存失败', e);
-  }
-}
-
-async function askAI(promptText){
-  if(!settings.proxyUrl) return {ok:false, error:'未配置代理地址'};
-  try{
-    const resp = await fetch(settings.proxyUrl, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({prompt: promptText})
-    });
-    const data = await resp.json();
-    if(data.error) return {ok:false, error:data.error};
-    return {ok:true, text: data.text || ''};
-  }catch(e){
-    return {ok:false, error:String(e)};
-  }
 }
 
 async function saveData(){
@@ -364,19 +294,133 @@ async function saveData(){
   }
 }
 
+function saveSettings(){
+  try{
+    localStorage.setItem('shu-jian-settings', JSON.stringify(settings));
+  }catch(e){
+    console.error('设置保存失败', e);
+  }
+}
+
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
 
-async function copyPromptToClipboard(type, stepKey, text){
-  const builder = PROMPTS[type] && PROMPTS[type][stepKey];
-  if(!builder) return false;
-  const promptText = builder(text);
+async function askAI(promptText, imageDataUrl){
+  if(!settings.proxyUrl) return {ok:false, error:'未配置代理地址'};
   try{
-    await navigator.clipboard.writeText(promptText);
-    return true;
+    const body = {prompt: promptText};
+    if(imageDataUrl) body.image = imageDataUrl;
+    const resp = await fetch(settings.proxyUrl, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
+    const data = await resp.json();
+    if(data.error) return {ok:false, error:data.error};
+    return {ok:true, text: (data.text||'').trim()};
   }catch(e){
-    console.error('复制失败', e);
-    return false;
+    return {ok:false, error:String(e)};
   }
+}
+
+async function callWeread(apiName, params){
+  if(!settings.proxyUrl) return {ok:false, error:'未配置代理地址'};
+  if(!settings.wereadKey) return {ok:false, error:'未配置微信读书 Key'};
+  try{
+    const resp = await fetch(settings.proxyUrl, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'weread', wereadKey: settings.wereadKey, apiName, params: params||{}})
+    });
+    const data = await resp.json();
+    if(data.error) return {ok:false, error:data.error};
+    return {ok:true, data:data.data};
+  }catch(e){
+    return {ok:false, error:String(e)};
+  }
+}
+
+function pendingWereadNotes(book){
+  return (book.wereadNotes || []).filter(n=>!n.used);
+}
+
+function wereadAnchorText(book){
+  const pending = pendingWereadNotes(book);
+  if(!pending.length) return '';
+  const lines = pending.slice(0, 20).map(n=>{
+    let line = (n.chapterTitle ? ('【' + n.chapterTitle + '】') : '') + (n.markText || '');
+    if(n.reviewContent) line += '（我的笔记：' + n.reviewContent + '）';
+    return line;
+  });
+  return '最近从微信读书同步的划线/笔记：\n' + lines.join('\n') + '\n\n';
+}
+
+function markWereadConsumed(book){
+  const pending = pendingWereadNotes(book);
+  if(!pending.length) return false;
+  pending.forEach(n=>{ n.used = true; });
+  return true;
+}
+
+function resizeImageFile(file, maxDim){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = (e)=>{
+      const img = new Image();
+      img.onload = ()=>{
+        let w = img.width, h = img.height;
+        if(w > h && w > maxDim){ h = Math.round(h * maxDim / w); w = maxDim; }
+        else if(h >= w && h > maxDim){ w = Math.round(w * maxDim / h); h = maxDim; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handlePhotoCapture(file){
+  try{
+    const dataUrl = await resizeImageFile(file, 1600);
+    sendChatPhoto(dataUrl);
+  }catch(e){
+    alert('图片处理失败，换一张试试');
+  }
+}
+
+async function sendChatPhoto(dataUrl){
+  const s = state.session;
+  s.messages.push({role:'user', content:'[拍了一张照片]', image:dataUrl});
+  render();
+  scrollChatToBottom();
+  if(!settings.proxyUrl){
+    s.messages.push({role:'check', content:'没配置代理，没法识图——可以直接打字讲讲这页写了什么。'});
+    render();
+    scrollChatToBottom();
+    return;
+  }
+  s.loading = true; render();
+  const promptText = SYSTEM_PROMPTS[s.type] +
+    '\n\n这是对方刚拍的书页照片。先用一两句话简要说说这页写了什么（如果是文言/半文言，顺带给一句大白话翻译），然后自然地追问一句，引导对方自己讲讲这段内容——像朋友聊天，不要写成阅读理解题。';
+  const res = await askAI(promptText, dataUrl);
+  s.loading = false;
+  s.messages.push({role:'assistant', content: res.ok && res.text ? res.text : ('（没识别出来：' + (res.error || '返回内容是空的') + '）')});
+  render();
+  scrollChatToBottom();
+}
+
+function buildChatPrompt(type, messages, book){
+  const transcript = messages.filter(m=>m.role==='user'||m.role==='assistant')
+    .map(m => (m.role==='assistant' ? '你' : '对方') + '：' + m.content).join('\n');
+  let anchor = book && book.draftNotes ?
+    ('参考原文/摘录材料："' + book.draftNotes + '"，讨论时尽量贴合这些具体内容，不要脱离原文泛泛而谈。\n\n') : '';
+  if(book) anchor += wereadAnchorText(book);
+  return SYSTEM_PROMPTS[type] + '\n\n' + anchor + '到目前为止的对话：\n' + transcript +
+    '\n\n接下来轮到你说话，只输出这一句话本身，不要加"你："这样的前缀，不要加引号，不要解释。';
 }
 
 function exportBackup(){
@@ -409,7 +453,289 @@ function importBackup(file){
   reader.readAsText(file);
 }
 
-/* ---------------- render root ---------------- */
+function sanitizeFileName(name){
+  return name.replace(/[\\/:*?"<>|]/g, '-').trim();
+}
+
+async function sendToObsidian(card, book){
+  if(!settings.obsidianVault){ alert('先在设置里填 Obsidian 库名'); return; }
+  const meta = INSIGHT_META[card.type] || INSIGHT_META.concept;
+  const dateStr = new Date(card.createdAt).toISOString().slice(0,10);
+  const bookTitle = book ? book.title : '未命名';
+  const noteName = sanitizeFileName(dateStr + ' ' + bookTitle + ' - ' + meta.label + ' ' + card.id.slice(-5));
+
+  const tagList = ['书鉴', meta.label, ...(card.tags||[])];
+  const frontmatter = '---\n' +
+    'book: "' + bookTitle.replace(/"/g,'\\"') + '"\n' +
+    'type: ' + card.type + '\n' +
+    'date: ' + dateStr + '\n' +
+    'tags: [' + tagList.map(t=>'"'+String(t).replace(/"/g,'\\"')+'"').join(', ') + ']\n' +
+    '---\n\n';
+
+  let content = frontmatter;
+  content += '来自《[[' + bookTitle + ']]》\n\n';
+  content += '**' + meta.label + '**\n\n' + card.content + '\n\n';
+  if(card.tags && card.tags.length) content += card.tags.map(t=>'#'+t.replace(/\s+/g,'')).join(' ') + '\n\n';
+  if(card.contextSnippet && card.contextSnippet.length){
+    content += '---\n相关对话：\n\n';
+    card.contextSnippet.forEach(m=>{
+      content += (m.role==='assistant'?'AI':'我') + '：' + m.content + '\n\n';
+    });
+  }
+
+  const url = 'obsidian://new?vault=' + encodeURIComponent(settings.obsidianVault) +
+    '&name=' + encodeURIComponent(noteName) +
+    '&content=' + encodeURIComponent(content);
+
+  if(url.length > 6000){
+    try{
+      await navigator.clipboard.writeText(content);
+      alert('这条内容比较长，直接跳转可能会失败，已经把内容复制到剪贴板：去 Obsidian 里新建一篇笔记，粘贴进去就行。');
+    }catch(e){
+      alert('这条内容比较长，直接跳转可能会失败，建议手动复制这张卡片的内容到 Obsidian。');
+    }
+    return;
+  }
+  window.location.href = url;
+}
+
+async function quickCaptureWereadNote(note, book){
+  const content = note.reviewContent || note.markText;
+  if(!content) return;
+  const card = {
+    id: uid(), bookId: book.id, type:'concept', content,
+    tags: [], contextSnippet: [], createdAt: Date.now()
+  };
+  appData.cards.push(card);
+  book.updatedAt = Date.now();
+  await saveData();
+  render();
+}
+
+async function syncWereadNotes(book, btn){
+  if(!settings.wereadKey){ alert('先在设置里填微信读书 Key'); return; }
+  if(!book.wereadBookId){ alert('先关联这本书'); return; }
+  if(btn) btn.textContent = '同步中…';
+  const [bmRes, chRes, rvRes] = await Promise.all([
+    callWeread('/book/bookmarklist', {bookId: book.wereadBookId}),
+    callWeread('/book/chapterinfo', {bookId: book.wereadBookId}),
+    callWeread('/review/list/mine', {bookId: book.wereadBookId, bookid: book.wereadBookId, count: 100})
+  ]);
+  if(!bmRes.ok && !rvRes.ok){
+    if(btn) btn.textContent = '同步失败：' + (bmRes.error || rvRes.error);
+    return;
+  }
+
+  const chapterMap = {};
+  const chapters = (chRes.ok && (chRes.data.updated || chRes.data.chapters || chRes.data)) || [];
+  (Array.isArray(chapters) ? chapters : []).forEach(c=>{
+    const chUid = c.chapterUid != null ? c.chapterUid : c.uid;
+    if(chUid != null) chapterMap[chUid] = c.title || c.chapterTitle || '';
+  });
+
+  book.wereadNotes = book.wereadNotes || [];
+  const existingIds = new Set(book.wereadNotes.map(n=>n.id));
+
+  const bookmarks = (bmRes.ok && (bmRes.data.updated || bmRes.data.bookmarks || bmRes.data)) || [];
+  (Array.isArray(bookmarks) ? bookmarks : []).forEach(b=>{
+    const id = 'bm_' + (b.bookmarkId || b.id || (b.chapterUid + '_' + b.range));
+    if(existingIds.has(id)) return;
+    existingIds.add(id);
+    book.wereadNotes.push({
+      id, chapterUid: b.chapterUid, chapterTitle: chapterMap[b.chapterUid] || '',
+      markText: b.markText || b.text || '', reviewContent: '',
+      createdAt: b.createTime ? b.createTime * 1000 : Date.now(), used: false
+    });
+  });
+
+  const reviews = (rvRes.ok && (rvRes.data.reviews || rvRes.data)) || [];
+  (Array.isArray(reviews) ? reviews : []).forEach(item=>{
+    const r = item.review || item;
+    const id = 'rv_' + (r.reviewId || r.id);
+    if(existingIds.has(id)) return;
+    existingIds.add(id);
+    book.wereadNotes.push({
+      id, chapterUid: r.chapterUid, chapterTitle: chapterMap[r.chapterUid] || '',
+      markText: r.abstract || '', reviewContent: r.content || r.htmlContent || '',
+      createdAt: r.createTime ? r.createTime * 1000 : Date.now(), used: false
+    });
+  });
+
+  book.wereadNotes.sort((a,b)=>b.createdAt-a.createdAt);
+  book.wereadLastSyncAt = Date.now();
+  book.updatedAt = Date.now();
+  await saveData();
+  render();
+}
+
+function openWereadLinkModal(book){
+  const overlay = el('div', {class:'overlay-back'});
+  const modal = el('div', {class:'modal'});
+  modal.appendChild(el('h2', {text:'关联微信读书', style:'font-size:18px;margin-bottom:6px;'}));
+  modal.appendChild(el('div', {class:'hint', text:'搜一下这本书，选中后以后同步笔记就不用再选了。'}));
+  const kwInput = el('input', {attrs:{type:'text'}});
+  kwInput.value = book.title;
+  modal.appendChild(kwInput);
+  const resultsBlock = el('div', {style:'margin-top:12px;'});
+  modal.appendChild(resultsBlock);
+
+  const doSearch = async ()=>{
+    const kw = kwInput.value.trim();
+    if(!kw) return;
+    resultsBlock.innerHTML = '';
+    resultsBlock.appendChild(el('div', {class:'hint', text:'搜索中…'}));
+    const res = await callWeread('/store/search', {keyword:kw, scope:10, count:8});
+    resultsBlock.innerHTML = '';
+    if(!res.ok){ resultsBlock.appendChild(el('div', {class:'hint', text:'搜索失败：' + res.error})); return; }
+    const sections = (res.data && res.data.results) || [];
+    const items = [];
+    (Array.isArray(sections) ? sections : []).forEach(section=>{
+      (section.books || []).forEach(b=>{
+        const info = b.bookInfo || b;
+        if(info && (info.bookId || info.id)) items.push(info);
+      });
+    });
+    if(!items.length){
+      resultsBlock.appendChild(el('div', {class:'hint', text:'没搜到，换个关键词试试。如果你确定这本书存在，点下面看看接口原始返回的内容，把它发给我排查。'}));
+      const rawBtn = el('button', {class:'link-btn', text:'查看原始返回', style:'margin-top:6px;', onclick:()=>{
+        rawBlock.style.display = rawBlock.style.display==='none' ? 'block' : 'none';
+      }});
+      resultsBlock.appendChild(rawBtn);
+      const rawBlock = el('textarea', {attrs:{rows:6, readonly:'readonly', style:'display:none;margin-top:8px;font-family:\'IBM Plex Mono\',monospace;font-size:11px;'}});
+      rawBlock.value = JSON.stringify(res.data, null, 2);
+      resultsBlock.appendChild(rawBlock);
+      return;
+    }
+    items.forEach(b=>{
+      const bookId = b.bookId || b.id;
+      const title = b.title || b.name || '未知书名';
+      const author = b.author || '';
+      const row = el('div', {class:'book-row', onclick: async ()=>{
+        book.wereadBookId = bookId;
+        book.wereadBookTitle = title;
+        book.updatedAt = Date.now();
+        await saveData();
+        document.body.removeChild(overlay);
+        render();
+        syncWereadNotes(book);
+      }});
+      const info = el('div', {class:'info'});
+      info.appendChild(el('div', {class:'title', text:title}));
+      info.appendChild(el('div', {class:'meta', text:author}));
+      row.appendChild(info);
+      resultsBlock.appendChild(row);
+    });
+  };
+
+  const btnRow = el('div', {style:'display:flex;gap:10px;margin-top:10px;'});
+  btnRow.appendChild(el('button', {class:'btn seal small', text:'搜索', onclick:doSearch}));
+  btnRow.appendChild(el('button', {class:'btn secondary small', text:'关闭', onclick:()=>document.body.removeChild(overlay)}));
+  modal.appendChild(btnRow);
+
+  overlay.appendChild(modal);
+  overlay.addEventListener('click', (e)=>{ if(e.target===overlay) document.body.removeChild(overlay); });
+  document.body.appendChild(overlay);
+  doSearch();
+}
+
+function renderWereadBlock(book){
+  const wrap = el('div', {style:'margin-bottom:20px;'});
+  const headRow = el('div', {style:'display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px;'});
+  headRow.appendChild(el('label', {text:'微信读书笔记', style:'margin-bottom:0;'}));
+  const actions = el('div', {style:'display:flex;gap:10px;'});
+  if(book.wereadBookId){
+    const syncBtn = el('button', {class:'link-btn', text:'同步微信读书笔记', onclick: ()=>syncWereadNotes(book, syncBtn)});
+    actions.appendChild(syncBtn);
+    actions.appendChild(el('button', {class:'link-btn', text:'换一本关联', onclick:()=>openWereadLinkModal(book)}));
+  } else {
+    actions.appendChild(el('button', {class:'link-btn', text:'关联微信读书', onclick:()=>openWereadLinkModal(book)}));
+  }
+  headRow.appendChild(actions);
+  wrap.appendChild(headRow);
+
+  if(book.wereadBookId){
+    wrap.appendChild(el('div', {class:'hint', text:'已关联：《' + (book.wereadBookTitle || book.title) + '》' +
+      (book.wereadLastSyncAt ? '　上次同步：' + new Date(book.wereadLastSyncAt).toLocaleString('zh-CN') : '')}));
+  }
+
+  const notes = book.wereadNotes || [];
+  if(notes.length){
+    const listBlock = el('div', {style:'margin-top:10px;display:flex;flex-direction:column;gap:8px;'});
+    notes.slice(0, 8).forEach(n=>{
+      const item = el('div', {style:'padding:10px 12px;border-radius:6px;background:var(--paper-raised);border:1px solid var(--line);'});
+      if(n.chapterTitle) item.appendChild(el('div', {class:'eyebrow', text:n.chapterTitle, style:'margin-bottom:4px;'}));
+      if(n.markText) item.appendChild(el('div', {style:'font-size:13.5px;line-height:1.6;color:var(--ink);', text:n.markText}));
+      if(n.reviewContent) item.appendChild(el('div', {style:'font-size:12.5px;line-height:1.6;color:var(--ink-soft);margin-top:4px;', text:'我的笔记：' + n.reviewContent}));
+      const rowBtns = el('div', {style:'margin-top:6px;'});
+      rowBtns.appendChild(el('button', {class:'link-btn', text:'记一下', onclick:()=>quickCaptureWereadNote(n, book)}));
+      item.appendChild(rowBtns);
+      listBlock.appendChild(item);
+    });
+    wrap.appendChild(listBlock);
+    if(notes.length > 8){
+      wrap.appendChild(el('div', {class:'hint', text:'共 ' + notes.length + ' 条，只显示最近 8 条', style:'margin-top:6px;'}));
+    }
+  }
+
+  return wrap;
+}
+
+function openReverseApplyModal(book){
+  const overlay = el('div', {class:'overlay-back'});
+  const modal = el('div', {class:'modal'});
+  modal.appendChild(el('h2', {text:'用这本书聊聊眼下的事', style:'font-size:18px;margin-bottom:6px;'}));
+  modal.appendChild(el('div', {class:'hint', text:'最近有什么事，想借《'+book.title+'》里的视角看看？写具体一点，别写"最近压力大"这种笼统的话。'}));
+
+  const ta = el('textarea', {attrs:{rows:4, placeholder:'比如：团队里有个决定我一直拿不准…'}});
+  modal.appendChild(ta);
+
+  const resultBlock = el('div');
+  modal.appendChild(resultBlock);
+
+  const btnRow = el('div', {style:'display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;'});
+  const goBtn = el('button', {class:'btn seal small', text:'借这本书看看', onclick: async ()=>{
+    const issue = ta.value.trim();
+    if(!issue){ alert('先写写眼下的事'); return; }
+    if(!settings.proxyUrl){ alert('没配置代理，这个用不了'); return; }
+    resultBlock.innerHTML = '';
+    resultBlock.appendChild(el('div', {class:'hint', text:'想一想…'}));
+    const progressCtx = book.progress ? ('目前读到的进展："' + book.progress + '"。') : '';
+    const anchor = book.draftNotes ? ('原文/摘录材料："' + book.draftNotes + '"。') : '';
+    const promptText = '对方在读《' + book.title + '》。' + progressCtx + anchor +
+      '现在对方遇到一件具体的事，想借这本书里的内容帮他看看："' + issue + '"\n\n' +
+      '请你结合这本书里具体的内容（不要脱离书泛泛而谈、不要说教、不要列点），给出一个视角或反问，帮他从书的角度重新看这件事，不超过4句话。';
+    const res = await askAI(promptText);
+    resultBlock.innerHTML = '';
+    if(res.ok && res.text){
+      const panel = el('div', {class:'reveal-panel'});
+      panel.appendChild(el('div', {class:'db-label', text:'借书里的视角看'}));
+      panel.appendChild(el('div', {class:'db-content', text:res.text}));
+      resultBlock.appendChild(panel);
+      resultBlock.appendChild(el('button', {class:'link-btn', text:'记一下这段', style:'margin-top:8px;', onclick: async ()=>{
+        const card = {
+          id: uid(), bookId: book.id, type:'lesson', content: res.text,
+          tags: [], contextSnippet:[{role:'user',content:issue},{role:'assistant',content:res.text}],
+          createdAt: Date.now(), status:'pending_practice', practiceResult:''
+        };
+        appData.cards.push(card);
+        book.updatedAt = Date.now();
+        await saveData();
+        document.body.removeChild(overlay);
+        render();
+      }}));
+    } else {
+      resultBlock.appendChild(el('div', {class:'hint', text:'没想出来：' + (res.error || '返回内容是空的')}));
+    }
+  }});
+  btnRow.appendChild(goBtn);
+  btnRow.appendChild(el('button', {class:'btn secondary small', text:'关闭', onclick:()=>document.body.removeChild(overlay)}));
+  modal.appendChild(btnRow);
+
+  overlay.appendChild(modal);
+  overlay.addEventListener('click', (e)=>{ if(e.target===overlay) document.body.removeChild(overlay); });
+  document.body.appendChild(overlay);
+}
+
 function render(){
   const app = document.getElementById('app');
   app.innerHTML = '';
@@ -420,6 +746,12 @@ function render(){
   else if(state.view==='session') app.appendChild(renderSession());
   else if(state.view==='library') app.appendChild(renderLibrary());
   app.appendChild(renderFooter());
+  if(state.showInsightCapture){
+    app.appendChild(renderInsightCaptureOverlay());
+  }
+  if(state.showSettings){
+    app.appendChild(renderSettingsOverlay());
+  }
 }
 
 function el(tag, opts={}, children=[]){
@@ -432,6 +764,14 @@ function el(tag, opts={}, children=[]){
   if(opts.onclick) e.addEventListener('click', opts.onclick);
   (children||[]).forEach(c=>{ if(c) e.appendChild(c); });
   return e;
+}
+
+const BACK_ARROW_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
+
+function backLink(label, onclick, style){
+  const btn = el('button', {class:'back-link', style, onclick});
+  btn.innerHTML = BACK_ARROW_SVG + '<span>' + label + '</span>';
+  return btn;
 }
 
 function renderHeader(){
@@ -461,13 +801,13 @@ function renderFooter(){
   const f = el('div', {class:'footer-zone'});
   const row = el('div', {style:'display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;'});
   row.appendChild(el('button', {class:'link-btn', text:'导出备份', onclick: exportBackup}));
-  const importLabel = el('label', {class:'link-btn', text:'导入备份', style:'cursor:pointer;'});
   const fileInput = el('input', {attrs:{type:'file', accept:'application/json', style:'display:none;'}});
   fileInput.addEventListener('change', (e)=>{
     if(e.target.files && e.target.files[0]) importBackup(e.target.files[0]);
+    fileInput.value = '';
   });
-  importLabel.appendChild(fileInput);
-  row.appendChild(importLabel);
+  row.appendChild(el('button', {class:'link-btn', text:'导入备份', onclick:()=>fileInput.click()}));
+  row.appendChild(fileInput);
   f.appendChild(row);
   f.appendChild(el('button', {class:'link-btn', text:'清空全部数据', onclick: async ()=>{
     if(confirm('确定要清空所有书和卡片吗？建议清空前先导出备份。')){
@@ -480,16 +820,24 @@ function renderFooter(){
   return f;
 }
 
-/* ---------------- home ---------------- */
 function renderHome(){
   const wrap = el('div');
 
+  const openQuestions = appData.cards.filter(c=>c.type==='question' && !c.resolved);
+  if(openQuestions.length>0){
+    const qBox = el('div', {class:'recall-box'});
+    qBox.appendChild(el('div', {class:'rb-title', text:'还有 '+openQuestions.length+' 个悬着的问题'}));
+    qBox.appendChild(el('div', {class:'hint', text:'要不要挑一个接着想想？'}));
+    qBox.appendChild(el('button', {class:'link-btn', text:'去卡片盒看看 →', onclick:()=>{state.cardFilterType='question'; state.view='library'; render();}}));
+    wrap.appendChild(qBox);
+  }
+
   const filterRow = el('div', {class:'tabs'});
-  const allBtn = el('button', {class:'tab-btn'+(state.filterType==='all'?' active':''), text:'全部', onclick:()=>{state.filterType='all'; render();}});
+  const allBtn = el('button', {class:'tab-btn'+(state.bookFilterType==='all'?' active':''), text:'全部', onclick:()=>{state.bookFilterType='all'; render();}});
   filterRow.appendChild(allBtn);
   Object.keys(TYPE_META).forEach(t=>{
-    const btn = el('button', {class:'tab-btn'+(state.filterType===t?' active':''), text:TYPE_META[t].char+' '+TYPE_META[t].label,
-      onclick:()=>{state.filterType=t; render();}});
+    const btn = el('button', {class:'tab-btn'+(state.bookFilterType===t?' active':''), text:TYPE_META[t].char+' '+TYPE_META[t].label,
+      onclick:()=>{state.bookFilterType=t; render();}});
     filterRow.appendChild(btn);
   });
   wrap.appendChild(filterRow);
@@ -499,7 +847,7 @@ function renderHome(){
   wrap.appendChild(head);
   wrap.appendChild(el('button', {class:'btn seal', text:'＋ 添加一本书', onclick:()=>{state.view='addBook'; render();}, style:'margin-bottom:18px;'}));
 
-  const books = appData.books.filter(b=> state.filterType==='all' || b.type===state.filterType)
+  const books = appData.books.filter(b=> state.bookFilterType==='all' || b.type===state.bookFilterType)
     .sort((a,b)=> (b.updatedAt||b.createdAt) - (a.updatedAt||a.createdAt));
 
   if(books.length===0){
@@ -512,22 +860,21 @@ function renderHome(){
       row.appendChild(el('div', {class:'spine', style:`background:${meta.hex};`}));
       const info = el('div', {class:'info'});
       info.appendChild(el('div', {class:'title', text:b.title}));
-      info.appendChild(el('div', {class:'meta', text: cardCount+' 次记录'}));
+      info.appendChild(el('div', {class:'meta', text: cardCount+' 条记录'}));
       row.appendChild(info);
       row.appendChild(el('div', {class:'type-chip', text:meta.char, style:`background:${meta.hex};`}));
       wrap.appendChild(row);
     });
   }
 
-  // recent cards preview
   const recentHead = el('div', {class:'section-head'});
-  recentHead.appendChild(el('h2', {text:'最近的卡片'}));
-  recentHead.appendChild(el('span', {class:'count', text:appData.cards.length+' 张'}));
+  recentHead.appendChild(el('h2', {text:'最近记的'}));
+  recentHead.appendChild(el('span', {class:'count', text:appData.cards.length+' 条'}));
   wrap.appendChild(recentHead);
 
   const recent = [...appData.cards].sort((a,b)=>b.createdAt-a.createdAt).slice(0,3);
   if(recent.length===0){
-    wrap.appendChild(el('div', {class:'empty-state', text:'完成第一次阅读记录后，卡片会出现在这里。'}));
+    wrap.appendChild(el('div', {class:'empty-state', text:'聊天时点"记一下"，卡片会出现在这里。'}));
   } else {
     recent.forEach(c=> wrap.appendChild(renderCardMini(c)));
     wrap.appendChild(el('button', {class:'link-btn', text:'查看全部卡片 →', onclick:()=>{state.view='library'; render();}}));
@@ -537,27 +884,29 @@ function renderHome(){
 }
 
 function renderCardMini(c){
-  const meta = TYPE_META[c.type];
+  const meta = INSIGHT_META[c.type] || INSIGHT_META.concept;
   const book = appData.books.find(b=>b.id===c.bookId);
   const card = el('div', {class:'index-card', onclick:()=>openCardModal(c.id)});
   const top = el('div', {class:'card-top'});
   top.appendChild(el('div', {class:'seal-badge', text:meta.char, style:`border-color:${meta.hex};color:${meta.hex};`}));
   top.appendChild(el('div', {class:'card-book', text:(book?book.title:'未命名')}));
   card.appendChild(top);
-  card.appendChild(el('div', {class:'card-principle', text: c.principle || '（未填写）'}));
+  card.appendChild(el('div', {class:'card-principle', text: c.content || '（未填写）'}));
   const tagRow = el('div', {class:'card-tags'});
   (c.tags||[]).forEach(t=> tagRow.appendChild(el('span', {class:'tag-pill', text:t})));
-  if(c.type==='practical'){
+  if(c.type==='lesson'){
     tagRow.appendChild(el('span', {class:'status-pill '+(c.status==='validated'?'status-validated':'status-pending'), text: c.status==='validated' ? '已验证':'待实践'}));
+  }
+  if(c.type==='question'){
+    tagRow.appendChild(el('span', {class:'status-pill '+(c.resolved?'status-validated':'status-pending'), text: c.resolved ? '已想通':'悬着'}));
   }
   card.appendChild(tagRow);
   return card;
 }
 
-/* ---------------- add book ---------------- */
 function renderAddBook(){
   const wrap = el('div');
-  wrap.appendChild(el('button', {class:'back-link', text:'← 返回书架', onclick:()=>{state.view='home'; render();}}));
+  wrap.appendChild(backLink('返回书架', ()=>{state.view='home'; render();}));
   wrap.appendChild(el('h2', {text:'添加一本书', style:'font-size:20px;margin-bottom:16px;'}));
 
   const titleField = el('div', {class:'field'});
@@ -566,7 +915,13 @@ function renderAddBook(){
   titleField.appendChild(titleInput);
   wrap.appendChild(titleField);
 
-  wrap.appendChild(el('label', {text:'类型 —— 决定用哪一套检验方法'}));
+  const authorField = el('div', {class:'field'});
+  authorField.appendChild(el('label', {text:'作者（可不填）'}));
+  const authorInput = el('input', {attrs:{type:'text', placeholder:'比如：黄仁宇'}});
+  authorField.appendChild(authorInput);
+  wrap.appendChild(authorField);
+
+  wrap.appendChild(el('label', {text:'类型 —— 决定聊天时问你什么样的问题'}));
   let selectedType = null;
   const picker = el('div', {class:'type-picker'});
   Object.keys(TYPE_META).forEach(t=>{
@@ -586,11 +941,11 @@ function renderAddBook(){
   });
   wrap.appendChild(picker);
 
-  wrap.appendChild(el('button', {class:'btn seal', text:'保存并开始第一节', onclick: async ()=>{
+  wrap.appendChild(el('button', {class:'btn seal', text:'保存并开始聊聊', onclick: async ()=>{
     const title = titleInput.value.trim();
     if(!title){ alert('先写个书名吧'); return; }
-    if(!selectedType){ alert('选一个类型，决定用哪套问法'); return; }
-    const book = {id:uid(), title, type:selectedType, createdAt:Date.now(), updatedAt:Date.now()};
+    if(!selectedType){ alert('选一个类型'); return; }
+    const book = {id:uid(), title, author:authorInput.value.trim(), type:selectedType, createdAt:Date.now(), updatedAt:Date.now()};
     appData.books.push(book);
     await saveData();
     state.currentBookId = book.id;
@@ -600,7 +955,6 @@ function renderAddBook(){
   return wrap;
 }
 
-/* ---------------- book detail ---------------- */
 function renderBookDetail(){
   const wrap = el('div');
   const book = appData.books.find(b=>b.id===state.currentBookId);
@@ -608,28 +962,60 @@ function renderBookDetail(){
   const meta = TYPE_META[book.type];
   const cards = appData.cards.filter(c=>c.bookId===book.id).sort((a,b)=>b.createdAt-a.createdAt);
 
-  wrap.appendChild(el('button', {class:'back-link', text:'← 返回书架', onclick:()=>{state.view='home'; render();}}));
+  wrap.appendChild(backLink('返回书架', ()=>{state.view='home'; render();}));
 
   const headRow = el('div', {style:'display:flex;align-items:center;gap:10px;margin-bottom:4px;'});
   headRow.appendChild(el('div', {class:'seal-badge', text:meta.char, style:`border-color:${meta.hex};color:${meta.hex};width:28px;height:28px;font-size:13px;`}));
   headRow.appendChild(el('h2', {text:book.title, style:'font-size:22px;'}));
   wrap.appendChild(headRow);
-  wrap.appendChild(el('div', {class:'eyebrow', text:meta.label+' · '+cards.length+' 次记录', style:'margin-bottom:20px;'}));
+  wrap.appendChild(el('div', {class:'eyebrow', text:meta.label+(book.author?' · '+book.author:'')+' · '+cards.length+' 条记录', style:'margin-bottom:20px;'}));
 
-  // spaced recall
+  if(book.progress){
+    const progressBlock = el('div', {style:'margin-bottom:16px;padding:12px 14px;border-radius:8px;background:var(--paper-raised);border:1px solid var(--line);'});
+    progressBlock.appendChild(el('div', {class:'db-label', text:'读到哪了'}));
+    progressBlock.appendChild(el('div', {class:'db-content', text:book.progress}));
+    wrap.appendChild(progressBlock);
+  }
+
+  const authorBlock = el('div', {style:'margin-bottom:16px;padding:12px 14px;border-radius:8px;background:var(--paper-raised);border:1px solid var(--line);'});
+  if(book.authorNotes){
+    authorBlock.appendChild(el('div', {class:'db-label', text:'读懂作者' + (book.author ? '（' + book.author + '）' : '')}));
+    authorBlock.appendChild(el('div', {class:'db-content', text:book.authorNotes}));
+    wrap.appendChild(authorBlock);
+  } else {
+    const authorBtn = el('button', {class:'link-btn', text:'读懂这位作者', onclick: async ()=>{
+      if(!settings.proxyUrl){ alert('没配置代理，这个用不了'); return; }
+      authorBtn.textContent = '想一想…';
+      const promptText = '对方在读《' + book.title + '》' + (book.author ? ('，作者是' + book.author) : '') +
+        '。请你简单说说这位作者/这本书在其思想脉络里大概处于什么位置——比如TA还有哪些代表作、这本书的核心观点跟TA其他作品比是延续还是转折。不超过5句话，不要列书单式罗列，像朋友介绍背景一样自然说。';
+      const res = await askAI(promptText);
+      if(res.ok && res.text){
+        book.authorNotes = res.text;
+        book.updatedAt = Date.now();
+        await saveData();
+        render();
+      } else {
+        authorBtn.textContent = '没想出来：' + (res.error || '返回内容是空的');
+      }
+    }});
+    authorBlock.appendChild(authorBtn);
+    wrap.appendChild(authorBlock);
+  }
+
   if(cards.length>0){
     const rb = el('div', {class:'recall-box'});
     rb.appendChild(el('div', {class:'rb-title', text:'继续之前，先回忆一下'}));
-    rb.appendChild(el('div', {class:'hint', text:'不看下面，凭记忆写一句上次提炼的道理——写不出来也没关系，写的过程本身就是在巩固记忆。'}));
-    const ta = el('textarea', {attrs:{rows:2, placeholder:'我记得上次讲的是…'}});
+    rb.appendChild(el('div', {class:'hint', text:'不看下面，凭记忆写一句上次记的内容——写不出来也没关系，写的过程本身就是在巩固记忆。'}));
+    const ta = el('textarea', {attrs:{rows:2, placeholder:'我记得上次记的是…'}});
     rb.appendChild(ta);
     if(!state.recallRevealed){
       rb.appendChild(el('button', {class:'link-btn', text:'揭晓上次的记录', style:'margin-top:8px;', onclick:()=>{state.recallRevealed=true; render();}}));
     } else {
       const last = cards[0];
+      const lastMeta = INSIGHT_META[last.type] || INSIGHT_META.concept;
       const panel = el('div', {class:'reveal-panel'});
-      panel.appendChild(el('div', {class:'db-label', text:'上次的道理'}));
-      panel.appendChild(el('div', {class:'db-content', text:last.principle||'（未填写）'}));
+      panel.appendChild(el('div', {class:'db-label', text:'上次记的（'+lastMeta.label+'）'}));
+      panel.appendChild(el('div', {class:'db-content', text:last.content||'（未填写）'}));
       rb.appendChild(panel);
     }
     wrap.appendChild(rb);
@@ -637,7 +1023,7 @@ function renderBookDetail(){
 
   const draftBlock = el('div', {style:'margin-bottom:20px;'});
   draftBlock.appendChild(el('label', {text:'整理这次读的内容（读的时候不用管这个页面）'}));
-  draftBlock.appendChild(el('div', {class:'hint', text:'微信读书：去"我"→"笔记"选这本书，复制划线和想法，粘贴在下面。纸质书：翻回你折角/夹书签的那几页，凭这些提示写几个词就行，不用重读。这些内容会在开始复述时自动带出来垫底。'}));
+  draftBlock.appendChild(el('div', {class:'hint', text:'微信读书：去"我"→"笔记"选这本书，复制划线和想法，粘贴在下面。纸质书：翻回你折角/夹书签的那几页，凭这些提示写几个词就行——或者直接开始聊天后用拍照。开始聊天时会自动带出来当开场的由头。'}));
   const draftTa = el('textarea', {attrs:{rows:3, placeholder:'粘贴微信读书划线，或翻书后写的几个关键词…'}});
   draftTa.value = book.draftNotes || '';
   let draftTimer = null;
@@ -649,11 +1035,16 @@ function renderBookDetail(){
   draftBlock.appendChild(draftTa);
   wrap.appendChild(draftBlock);
 
-  wrap.appendChild(el('button', {class:'btn seal', text:'开始新的一节', onclick:()=>startSession(book.id), style:'margin-bottom:26px;'}));
+  wrap.appendChild(renderWereadBlock(book));
+
+  const actionRow = el('div', {style:'display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;'});
+  actionRow.appendChild(el('button', {class:'btn seal', text:'开始聊聊', onclick:()=>startSession(book.id)}));
+  actionRow.appendChild(el('button', {class:'btn secondary', text:'用这本书聊聊眼下的事', onclick:()=>openReverseApplyModal(book)}));
+  wrap.appendChild(actionRow);
 
   wrap.appendChild(el('h2', {text:'这本书的记录', style:'font-size:16px;margin-bottom:12px;'}));
   if(cards.length===0){
-    wrap.appendChild(el('div', {class:'empty-state', text:'还没有记录，开始第一节吧。'}));
+    wrap.appendChild(el('div', {class:'empty-state', text:'还没有记录，开始第一次聊聊吧。'}));
   } else {
     cards.forEach(c=> wrap.appendChild(renderCardMini(c)));
   }
@@ -661,147 +1052,344 @@ function renderBookDetail(){
   return wrap;
 }
 
-/* ---------------- session flow ---------------- */
 function startSession(bookId){
   const book = appData.books.find(b=>b.id===bookId);
-  const firstKey = STEP_CONFIGS[book.type][0].key;
-  const answers = {};
-  if(book.draftNotes) answers[firstKey] = book.draftNotes;
-  state.session = {bookId, type:book.type, stepIndex:0, answers, followups:{}, aiLoading:false};
+  state.session = {bookId, type:book.type, messages:[], loading:false, checkIndex:0, awaitingSelfNote:true};
   state.view = 'session';
   render();
+}
+
+async function openSessionConversation(book){
+  const s = state.session;
+  if(s.selfNote){
+    s.messages.push({role:'user', content: s.selfNote});
+    render();
+    scrollChatToBottom();
+    if(settings.proxyUrl){
+      s.loading = true; render();
+      const promptText = buildChatPrompt(s.type, s.messages, book);
+      if(markWereadConsumed(book)) saveData();
+      const res = await askAI(promptText);
+      s.loading = false;
+      s.messages.push({role:'assistant', content: res.ok && res.text ? res.text : OPENING_STATIC[book.type]});
+    } else {
+      s.messages.push({role:'check', content:'没配置代理，先记着这段自己的想法，读完可以点"记一下"存住。'});
+    }
+  } else if(settings.proxyUrl){
+    s.loading = true; render();
+    const context = (book.progress ? ('上次聊到的进度："' + book.progress + '"。') : '') +
+      (book.draftNotes ? ('用户读书时记的碎片："' + book.draftNotes + '"。') : '') +
+      wereadAnchorText(book);
+    const promptText = SYSTEM_PROMPTS[book.type] + '\n\n' + context +
+      (book.progress ? '请你接着上次的进度，用一句自然的问题邀请对方继续讲讲，不超过两句话，不要说"你好"这类客套话，直接问。'
+        : '请你用一句自然的开场问题，邀请对方把刚读的内容讲给你听，不超过两句话，不要说"你好"这类客套话，直接问。');
+    if(markWereadConsumed(book)) saveData();
+    const res = await askAI(promptText);
+    s.loading = false;
+    s.messages.push({role:'assistant', content: res.ok && res.text ? res.text : OPENING_STATIC[book.type]});
+  } else {
+    let opener = OPENING_STATIC[book.type];
+    if(book.draftNotes) opener += '\n\n（你记的：' + book.draftNotes + '）';
+    s.messages.push({role:'assistant', content: opener});
+  }
+  render();
+  scrollChatToBottom();
+}
+
+async function sendChatMessage(text){
+  const s = state.session;
+  s.messages.push({role:'user', content:text});
+  render();
+  scrollChatToBottom();
+  if(settings.proxyUrl){
+    s.loading = true; render();
+    const book = appData.books.find(b=>b.id===s.bookId);
+    const promptText = buildChatPrompt(s.type, s.messages, book);
+    const res = await askAI(promptText);
+    s.loading = false;
+    s.messages.push({role:'assistant', content: res.ok && res.text ? res.text : '（AI没回上，可以继续说，或者点"记一下"先存住这段）'});
+    render();
+    scrollChatToBottom();
+  } else {
+    const pool = STATIC_CHECKS[s.type] || [];
+    if(pool.length){
+      const check = pool[s.checkIndex % pool.length];
+      s.checkIndex++;
+      s.messages.push({role:'check', content: check});
+      render();
+      scrollChatToBottom();
+    }
+  }
+}
+
+function scrollChatToBottom(){
+  requestAnimationFrame(()=>{
+    const box = document.querySelector('.chat-box');
+    if(box) box.scrollIntoView({block:'end', behavior:'smooth'});
+  });
+}
+
+function endSession(){
+  const s = state.session;
+  const book = appData.books.find(b=>b.id===s.bookId);
+  const realMessages = s.messages.filter(m=>m.role==='user'||m.role==='assistant');
+  if(book && settings.proxyUrl && realMessages.length>=2){
+    updateBookProgress(book, s);
+  }
+  state.session = null;
+  state.view = 'bookDetail';
+  render();
+}
+
+async function updateBookProgress(book, s){
+  const transcript = s.messages.filter(m=>m.role==='user'||m.role==='assistant')
+    .map(m=>(m.role==='assistant'?'AI':'我')+'：'+m.content).join('\n');
+  const prevProgress = book.progress ? ('之前的进度记录："' + book.progress + '"。\n\n') : '';
+  const promptText = prevProgress + '这是这本书最新一次读书对话：\n' + transcript +
+    '\n\n请你用一两句话（不超过60字）更新这本书的阅读进度记录，说清楚目前读到哪儿、聊到了什么重点，方便下次接着聊。只输出这一两句话，不要解释、不要加称呼。';
+  const res = await askAI(promptText);
+  if(res.ok && res.text){
+    book.progress = res.text;
+    book.updatedAt = Date.now();
+    await saveData();
+    if(state.view==='bookDetail' && state.currentBookId===book.id) render();
+  }
+}
+
+function recentSnippet(n){
+  const s = state.session;
+  if(!s) return [];
+  return s.messages.filter(m=>m.role!=='check').slice(-n).map(m=>({role:m.role, content:m.content}));
 }
 
 function renderSession(){
   const wrap = el('div');
   const s = state.session;
   const book = appData.books.find(b=>b.id===s.bookId);
-  const steps = STEP_CONFIGS[s.type];
-  const step = steps[s.stepIndex];
   const meta = TYPE_META[s.type];
 
-  wrap.appendChild(el('button', {class:'back-link', text:'← 退出本节（不保存）', onclick:()=>{
-    if(confirm('退出后这一节的内容不会保存，确定吗？')){ state.session=null; state.view='bookDetail'; render(); }
-  }}));
+  wrap.appendChild(backLink('结束聊天', endSession));
+  wrap.appendChild(el('div', {class:'eyebrow', text:book.title+' · '+meta.label, style:'margin-bottom:14px;'}));
 
-  wrap.appendChild(el('div', {class:'eyebrow', text:book.title+' · '+meta.label}));
-
-  const progress = el('div', {class:'step-progress'});
-  steps.forEach((st, i)=>{
-    let cls='step-dot';
-    if(i===s.stepIndex) cls+=' active';
-    else if(i<s.stepIndex) cls+=' filled';
-    progress.appendChild(el('div', {class:cls}));
-  });
-  wrap.appendChild(progress);
-
-  wrap.appendChild(el('div', {class:'step-label', text:(s.stepIndex+1)+' / '+steps.length+'　'+step.label}));
-  wrap.appendChild(el('div', {class:'hint', text:step.hint}));
-
-  const ta = el('textarea', {attrs:{rows:5, placeholder:step.placeholder}});
-  ta.value = s.answers[step.key] || '';
-  ta.addEventListener('input', ()=>{ s.answers[step.key] = ta.value; });
-  wrap.appendChild(ta);
-
-  const check = STATIC_CHECKS[s.type] && STATIC_CHECKS[s.type][step.key];
-  if(check){
-    const fb = el('div', {class:'followup-box'});
-    fb.appendChild(el('div', {class:'fu-label', text:'自查'}));
-    fb.appendChild(el('div', {text:check}));
-    wrap.appendChild(fb);
-  }
-
-  if(s.followups[step.key]){
-    const fb = el('div', {class:'followup-box'});
-    fb.appendChild(el('div', {class:'fu-label', text:'AI 追问'}));
-    fb.appendChild(el('div', {text:s.followups[step.key]}));
-    wrap.appendChild(fb);
-  }
-
-  const copyStatus = el('div', {class:'hint', style:'margin-top:8px;min-height:16px;'});
-
-  const actions = el('div', {class:'step-actions'});
-
-  if(settings.proxyUrl){
-    actions.appendChild(el('button', {class:'btn seal small', text: s.aiLoading ? 'AI 追问中…' : 'AI 追问', attrs: s.aiLoading?{disabled:'true'}:{}, onclick: async ()=>{
-      const text = (s.answers[step.key]||'').trim();
-      if(text.length<2){ alert('先写几句再问吧'); return; }
-      s.aiLoading = true; render();
-      const promptText = PROMPTS[s.type][step.key](text);
-      const res = await askAI(promptText);
-      s.aiLoading = false;
-      s.followups[step.key] = res.ok ? res.text : ('（调用失败：'+res.error+'，可以用下面复制模板手动问）');
+  if(s.awaitingSelfNote){
+    const panel = el('div', {class:'recall-box'});
+    panel.appendChild(el('div', {class:'rb-title', text:'先自己想想，再让AI追问'}));
+    panel.appendChild(el('div', {class:'hint', text:'带着问题读效果更好。花10秒写写你自己的理解或疑问，AI会直接针对这个来问——留空也可以直接跳过。'}));
+    const selfTa = el('textarea', {attrs:{rows:2, placeholder:'我觉得这段讲的是…／我没搞懂的是…'}});
+    panel.appendChild(selfTa);
+    const btnRow = el('div', {style:'display:flex;gap:10px;margin-top:10px;'});
+    btnRow.appendChild(el('button', {class:'btn seal small', text:'开始聊', onclick:()=>{
+      s.awaitingSelfNote = false;
+      s.selfNote = selfTa.value.trim();
       render();
+      openSessionConversation(book);
     }}));
+    btnRow.appendChild(el('button', {class:'link-btn', text:'跳过，直接聊', onclick:()=>{
+      s.awaitingSelfNote = false;
+      s.selfNote = '';
+      render();
+      openSessionConversation(book);
+    }}));
+    panel.appendChild(btnRow);
+    wrap.appendChild(panel);
+    return wrap;
   }
 
-  actions.appendChild(el('button', {class:'btn secondary small', text:'复制追问模板', onclick: async ()=>{
-    const text = (s.answers[step.key]||'').trim();
-    if(text.length<2){ alert('先写几句再复制吧'); return; }
-    const ok = await copyPromptToClipboard(s.type, step.key, text);
-    copyStatus.textContent = ok ? '已复制，粘贴到你手机上的 AI app 里就行' : '复制失败，浏览器可能不支持';
+  const chatBox = el('div', {class:'chat-box'});
+  s.messages.forEach(m=>{
+    let cls = 'chat-bubble ';
+    if(m.role==='assistant') cls += 'bubble-ai';
+    else if(m.role==='user') cls += 'bubble-user';
+    else cls += 'bubble-check';
+    const bubble = el('div', {class:cls});
+    if(m.image){
+      bubble.appendChild(el('img', {attrs:{src:m.image, style:'max-width:100%;border-radius:8px;display:block;margin-bottom:6px;'}}));
+    }
+    if(m.content) bubble.appendChild(document.createTextNode(m.content));
+    chatBox.appendChild(bubble);
+  });
+  if(s.loading){
+    chatBox.appendChild(el('div', {class:'chat-bubble bubble-ai bubble-loading', text:'…'}));
+  }
+  wrap.appendChild(chatBox);
+
+  const inputRow = el('div', {class:'chat-input-row'});
+  const ta = el('textarea', {attrs:{rows:2, placeholder:'说说你读到的…'}});
+  inputRow.appendChild(ta);
+
+  const actionsRow = el('div', {class:'chat-actions-row'});
+  const leftGroup = el('div', {class:'chat-actions-left'});
+
+  const photoInput = el('input', {attrs:{type:'file', accept:'image/*', capture:'environment', style:'display:none;'}});
+  photoInput.addEventListener('change', (e)=>{
+    const file = e.target.files && e.target.files[0];
+    if(file) handlePhotoCapture(file);
+    photoInput.value = '';
+  });
+  leftGroup.appendChild(photoInput);
+  leftGroup.appendChild(el('button', {class:'btn secondary small', text:'拍页', onclick:()=>photoInput.click()}));
+  leftGroup.appendChild(el('button', {class:'btn secondary small', text:'记一下', onclick:()=>{
+    state.showInsightCapture = true;
+    state.insightTypeDraft = null;
+    state.insightTagDraft = [];
+    render();
+  }}));
+  actionsRow.appendChild(leftGroup);
+
+  const sendBtn = el('button', {class:'btn seal small', text:'发送', onclick:()=>{
+    const text = ta.value.trim();
+    if(!text) return;
+    ta.value='';
+    sendChatMessage(text);
+  }});
+  ta.addEventListener('keydown', (e)=>{
+    if(e.key==='Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendBtn.click();
+    }
+  });
+  actionsRow.appendChild(sendBtn);
+  inputRow.appendChild(actionsRow);
+  wrap.appendChild(inputRow);
+
+  wrap.appendChild(el('button', {class:'link-btn', text:'复制这段对话', style:'margin-top:12px;', onclick: async ()=>{
+    const text = s.messages.filter(m=>m.role!=='check').map(m=>(m.role==='assistant'?'AI':'我')+'：'+m.content).join('\n');
+    try{ await navigator.clipboard.writeText(text); alert('已复制'); }catch(e){ alert('复制失败，浏览器可能不支持'); }
   }}));
 
-  const isLast = s.stepIndex === steps.length-1;
-  actions.appendChild(el('button', {class:'btn seal', text: isLast ? '完成，去打标签' : '下一步', onclick:()=>{
-    const text = (s.answers[step.key]||'').trim();
-    if(text.length<2){ alert('先写几句再继续吧'); return; }
-    advanceStep(steps);
-  }}));
-
-  wrap.appendChild(actions);
-  wrap.appendChild(copyStatus);
   return wrap;
 }
 
-function advanceStep(steps){
-  const s = state.session;
-  if(s.stepIndex < steps.length-1){
-    s.stepIndex += 1;
-    render();
-  } else {
-    state.showTagging = true;
-    state.tagDraft = [];
-    render();
-  }
-}
+function renderInsightCaptureOverlay(){
+  const overlay = el('div', {class:'overlay-back'});
+  const modal = el('div', {class:'modal'});
+  modal.appendChild(backLink('返回聊天', ()=>{state.showInsightCapture=false; render();}, 'padding-bottom:8px;'));
+  modal.appendChild(el('h2', {text:'记一下', style:'font-size:18px;margin-bottom:10px;'}));
 
-/* ---------------- tagging + save (rendered as overlay on top of session view) ---------------- */
-const originalRender = render;
-render = function(){
-  originalRender();
-  if(state.showTagging){
-    document.getElementById('app').appendChild(renderTaggingOverlay());
-  }
-  if(state.showSettings){
-    document.getElementById('app').appendChild(renderSettingsOverlay());
-  }
-};
+  modal.appendChild(el('div', {class:'hint', text:'这一刻属于哪一种：'}));
+  const picker = el('div', {class:'type-picker'});
+  Object.keys(INSIGHT_META).forEach(t=>{
+    const meta = INSIGHT_META[t];
+    const card = el('div', {class:'type-card'+(state.insightTypeDraft===t?' selected':'')});
+    const head = el('div', {class:'tc-head'});
+    head.appendChild(el('div', {class:'seal-badge', text:meta.char, style:`border-color:${meta.hex};color:${meta.hex};`}));
+    head.appendChild(el('div', {class:'tc-title', text:meta.label}));
+    card.appendChild(head);
+    card.appendChild(el('div', {class:'tc-desc', text:meta.desc}));
+    card.addEventListener('click', ()=>{
+      state.insightTypeDraft = t;
+      picker.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+    picker.appendChild(card);
+  });
+  modal.appendChild(picker);
+
+  const contentField = el('div', {class:'field'});
+  contentField.appendChild(el('label', {text:'写下这个瞬间'}));
+  const contentTa = el('textarea', {attrs:{rows:3, placeholder:'具体一点，别写正确的废话'}});
+  contentField.appendChild(contentTa);
+  modal.appendChild(contentField);
+
+  const aiFillBtn = el('button', {class:'link-btn', text:'AI 帮我总结最近聊的', onclick: async ()=>{
+    if(!settings.proxyUrl){ alert('没配置代理，这个用不了'); return; }
+    aiFillBtn.textContent = '生成中…';
+    const snippet = recentSnippet(6).map(m=>(m.role==='assistant'?'你':'对方')+'：'+m.content).join('\n');
+    const promptText = '以下是最近几句读书对话：\n' + snippet +
+      '\n\n请用一到两句话（不超过40字）帮对方总结这一刻最值得记的点，不要解释，只输出这一两句话。';
+    const res = await askAI(promptText);
+    aiFillBtn.textContent = 'AI 帮我总结最近聊的';
+    if(res.ok && res.text) contentTa.value = res.text;
+  }});
+  modal.appendChild(aiFillBtn);
+
+  modal.appendChild(el('div', {class:'hint', text:'标签，方便以后按场景检索，可不选。', style:'margin-top:14px;'}));
+  const chipRow = el('div', {class:'chip-select'});
+  TAG_OPTIONS.forEach(tag=>{
+    const chip = el('div', {class:'chip', text:tag});
+    chip.addEventListener('click', ()=>{
+      if(state.insightTagDraft.includes(tag)){
+        state.insightTagDraft = state.insightTagDraft.filter(t=>t!==tag);
+        chip.classList.remove('selected');
+      } else {
+        state.insightTagDraft.push(tag);
+        chip.classList.add('selected');
+      }
+    });
+    chipRow.appendChild(chip);
+  });
+  modal.appendChild(chipRow);
+
+  modal.appendChild(el('button', {class:'btn seal', text:'记下来', onclick: async ()=>{
+    if(!state.insightTypeDraft){ alert('先选一种类型'); return; }
+    const content = contentTa.value.trim();
+    if(!content){ alert('写点什么再保存吧'); return; }
+    const s = state.session;
+    const book = appData.books.find(b=>b.id===s.bookId);
+    const card = {
+      id: uid(), bookId: s.bookId, type: state.insightTypeDraft, content,
+      tags: [...state.insightTagDraft],
+      contextSnippet: recentSnippet(4),
+      createdAt: Date.now()
+    };
+    if(state.insightTypeDraft==='lesson'){ card.status='pending_practice'; card.practiceResult=''; }
+    appData.cards.push(card);
+    book.updatedAt = Date.now();
+    await saveData();
+    state.showInsightCapture = false;
+    render();
+  }}));
+
+  overlay.appendChild(modal);
+  return overlay;
+}
 
 function renderSettingsOverlay(){
   const overlay = el('div', {class:'overlay-back'});
   const modal = el('div', {class:'modal'});
   modal.appendChild(el('h2', {text:'设置', style:'font-size:18px;margin-bottom:6px;'}));
-  modal.appendChild(el('div', {class:'hint', text:'填你自己部署的代理地址（比如 Cloudflare Worker），书鉴不存任何 API Key，只跟这个地址说话。留空就只用"复制追问模板"这条手动路径。'}));
+  modal.appendChild(el('div', {class:'hint', text:'填你自己部署的代理地址（Cloudflare Worker 或 uniCloud 云函数），书鉴不存任何 API Key，只跟这个地址说话。留空的话聊天会用固定开场白+自查提示，没有真实追问。'}));
 
   const field = el('div', {class:'field'});
   field.appendChild(el('label', {text:'AI 代理地址'}));
-  const input = el('input', {attrs:{type:'text', placeholder:'https://your-worker.workers.dev'}});
+  const input = el('input', {attrs:{type:'text', placeholder:'https://your-proxy-url'}});
   input.value = settings.proxyUrl || '';
   field.appendChild(input);
   modal.appendChild(field);
 
+  const obField = el('div', {class:'field'});
+  obField.appendChild(el('label', {text:'Obsidian 库名（用于"发到 Obsidian"）'}));
+  const obInput = el('input', {attrs:{type:'text', placeholder:'跟 Obsidian 里显示的库名完全一致'}});
+  obInput.value = settings.obsidianVault || '';
+  obField.appendChild(obInput);
+  modal.appendChild(obField);
+  modal.appendChild(el('div', {class:'hint', text:'手机上要装了 Obsidian App 才会跳转成功；在电脑浏览器里点"发到 Obsidian"大概率没反应，是正常的。'}));
+
+  const wereadField = el('div', {class:'field'});
+  wereadField.appendChild(el('label', {text:'微信读书 API Key（用于同步划线笔记）'}));
+  const wereadInput = el('input', {attrs:{type:'text', placeholder:'wrk-…'}});
+  wereadInput.value = settings.wereadKey || '';
+  wereadField.appendChild(wereadInput);
+  modal.appendChild(wereadField);
+  modal.appendChild(el('div', {class:'hint', text:'去 weread.qq.com/r/weread-skills 登录你的微信读书账号获取，复制粘贴到这里就行，同样只存在本地。'}));
+
   const statusMsg = el('div', {class:'hint', style:'min-height:16px;'});
   modal.appendChild(statusMsg);
 
-  const btnRow = el('div', {style:'display:flex;gap:10px;'});
-  btnRow.appendChild(el('button', {class:'btn secondary small', text:'测试连接', onclick: async ()=>{
+  const btnRow = el('div', {style:'display:flex;gap:10px;flex-wrap:wrap;'});
+  btnRow.appendChild(el('button', {class:'btn secondary small', text:'测试AI连接', onclick: async ()=>{
     statusMsg.textContent = '测试中…';
+    const tempUrl = input.value.trim();
+    const prevUrl = settings.proxyUrl;
+    settings.proxyUrl = tempUrl;
     const res = await askAI('直接回复"书鉴连接成功"这五个字，不要说别的。');
+    settings.proxyUrl = prevUrl;
     statusMsg.textContent = res.ok ? ('返回：'+res.text) : ('失败：'+res.error);
   }}));
   btnRow.appendChild(el('button', {class:'btn seal small', text:'保存', onclick:()=>{
     settings.proxyUrl = input.value.trim();
+    settings.obsidianVault = obInput.value.trim();
+    settings.wereadKey = wereadInput.value.trim();
     saveSettings();
     state.showSettings = false;
     render();
@@ -814,75 +1402,23 @@ function renderSettingsOverlay(){
   return overlay;
 }
 
-function renderTaggingOverlay(){
-  const overlay = el('div', {class:'overlay-back'});
-  const modal = el('div', {class:'modal'});
-  modal.appendChild(el('button', {class:'back-link', text:'← 返回修改', style:'padding-bottom:8px;', onclick:()=>{state.showTagging=false; render();}}));
-  modal.appendChild(el('h2', {text:'给这张卡片打个标签', style:'font-size:18px;margin-bottom:6px;'}));
-  modal.appendChild(el('div', {class:'hint', text:'方便以后按场景检索。可以多选，也可以不选。'}));
-
-  const chipRow = el('div', {class:'chip-select'});
-  TAG_OPTIONS.forEach(tag=>{
-    const chip = el('div', {class:'chip', text:tag});
-    chip.addEventListener('click', ()=>{
-      if(state.tagDraft.includes(tag)){
-        state.tagDraft = state.tagDraft.filter(t=>t!==tag);
-        chip.classList.remove('selected');
-      } else {
-        state.tagDraft.push(tag);
-        chip.classList.add('selected');
-      }
-    });
-    chipRow.appendChild(chip);
-  });
-  modal.appendChild(chipRow);
-
-  modal.appendChild(el('button', {class:'btn seal', text:'保存卡片', onclick: async ()=>{
-    const s = state.session;
-    const book = appData.books.find(b=>b.id===s.bookId);
-    const card = {
-      id: uid(), bookId: s.bookId, type: s.type, createdAt: Date.now(),
-      steps: {}, tags: [...state.tagDraft],
-      status: s.type==='practical' ? 'pending_practice' : 'done',
-      practiceResult:''
-    };
-    STEP_CONFIGS[s.type].forEach(st=>{
-      card.steps[st.key] = {content: s.answers[st.key]||'', aiFollowup: s.followups[st.key]||null};
-    });
-    card.principle = s.answers.principle || '';
-    card.applicationNote = s.answers.application || '';
-    appData.cards.push(card);
-    book.updatedAt = Date.now();
-    book.draftNotes = '';
-    await saveData();
-    state.session = null;
-    state.showTagging = false;
-    state.view = 'bookDetail';
-    render();
-  }}));
-
-  overlay.appendChild(modal);
-  return overlay;
-}
-
-/* ---------------- library ---------------- */
 function renderLibrary(){
   const wrap = el('div');
   wrap.appendChild(el('h2', {text:'卡片盒', style:'font-size:20px;margin-bottom:14px;'}));
 
   const sb = el('div', {class:'search-box'});
-  const input = el('input', {attrs:{type:'text', placeholder:'搜索道理、书名或标签…'}});
+  const input = el('input', {attrs:{type:'text', placeholder:'搜索内容、书名或标签…'}});
   input.value = state.librarySearch;
   input.addEventListener('input', ()=>{ state.librarySearch = input.value; renderLibraryList(list); });
   sb.appendChild(input);
   wrap.appendChild(sb);
 
   const filterRow = el('div', {class:'tabs'});
-  const allBtn = el('button', {class:'tab-btn'+(state.filterType==='all'?' active':''), text:'全部', onclick:()=>{state.filterType='all'; render();}});
+  const allBtn = el('button', {class:'tab-btn'+(state.cardFilterType==='all'?' active':''), text:'全部', onclick:()=>{state.cardFilterType='all'; render();}});
   filterRow.appendChild(allBtn);
-  Object.keys(TYPE_META).forEach(t=>{
-    const btn = el('button', {class:'tab-btn'+(state.filterType===t?' active':''), text:TYPE_META[t].char+' '+TYPE_META[t].label,
-      onclick:()=>{state.filterType=t; render();}});
+  Object.keys(INSIGHT_META).forEach(t=>{
+    const btn = el('button', {class:'tab-btn'+(state.cardFilterType===t?' active':''), text:INSIGHT_META[t].char+' '+INSIGHT_META[t].label,
+      onclick:()=>{state.cardFilterType=t; render();}});
     filterRow.appendChild(btn);
   });
   wrap.appendChild(filterRow);
@@ -898,11 +1434,11 @@ function renderLibraryList(container){
   container.innerHTML = '';
   const q = state.librarySearch.trim().toLowerCase();
   let cards = [...appData.cards].sort((a,b)=>b.createdAt-a.createdAt);
-  if(state.filterType!=='all') cards = cards.filter(c=>c.type===state.filterType);
+  if(state.cardFilterType!=='all') cards = cards.filter(c=>c.type===state.cardFilterType);
   if(q){
     cards = cards.filter(c=>{
       const book = appData.books.find(b=>b.id===c.bookId);
-      const hay = [(book?book.title:''), c.principle, (c.tags||[]).join(' ')].join(' ').toLowerCase();
+      const hay = [(book?book.title:''), c.content, (c.tags||[]).join(' ')].join(' ').toLowerCase();
       return hay.includes(q);
     });
   }
@@ -913,12 +1449,11 @@ function renderLibraryList(container){
   cards.forEach(c=> container.appendChild(renderCardMini(c)));
 }
 
-/* ---------------- card detail modal ---------------- */
 function openCardModal(cardId){
   const c = appData.cards.find(x=>x.id===cardId);
   if(!c) return;
   const book = appData.books.find(b=>b.id===c.bookId);
-  const meta = TYPE_META[c.type];
+  const meta = INSIGHT_META[c.type] || INSIGHT_META.concept;
   const overlay = el('div', {class:'overlay-back'});
   const modal = el('div', {class:'modal'});
 
@@ -926,24 +1461,53 @@ function openCardModal(cardId){
   head.appendChild(el('div', {class:'seal-badge', text:meta.char, style:`border-color:${meta.hex};color:${meta.hex};`}));
   head.appendChild(el('h2', {text: book?book.title:'未命名', style:'font-size:17px;'}));
   modal.appendChild(head);
-  modal.appendChild(el('div', {class:'eyebrow', text: new Date(c.createdAt).toLocaleDateString('zh-CN'), style:'margin-bottom:16px;'}));
+  modal.appendChild(el('div', {class:'eyebrow', text: meta.label+' · '+new Date(c.createdAt).toLocaleDateString('zh-CN'), style:'margin-bottom:16px;'}));
 
-  STEP_CONFIGS[c.type].forEach(st=>{
-    const stepData = c.steps[st.key];
-    if(!stepData || !stepData.content) return;
-    const block = el('div', {class:'detail-block'});
-    block.appendChild(el('div', {class:'db-label', text:st.label}));
-    block.appendChild(el('div', {class:'db-content', text:stepData.content}));
-    if(stepData.aiFollowup){
-      const fb = el('div', {class:'followup-box', style:'margin-top:8px;'});
-      fb.appendChild(el('div', {class:'fu-label', text:'追问'}));
-      fb.appendChild(el('div', {text:stepData.aiFollowup}));
-      block.appendChild(fb);
-    }
-    modal.appendChild(block);
-  });
+  const contentBlock = el('div', {class:'detail-block'});
+  contentBlock.appendChild(el('div', {class:'db-label', text:meta.label}));
+  contentBlock.appendChild(el('div', {class:'db-content', text:c.content||'（未填写）'}));
+  modal.appendChild(contentBlock);
 
-  if(c.type==='practical'){
+  const crossCheckBlock = el('div', {class:'detail-block'});
+  if(c.crossCheck){
+    crossCheckBlock.appendChild(el('div', {class:'db-label', text:'还有谁这么说'}));
+    crossCheckBlock.appendChild(el('div', {class:'db-content', text:c.crossCheck}));
+    modal.appendChild(crossCheckBlock);
+  } else {
+    const crossCheckBtn = el('button', {class:'link-btn', text:'查一下还有谁这么说', onclick: async ()=>{
+      if(!settings.proxyUrl){ alert('没配置代理，这个用不了'); return; }
+      if(!c.content){ alert('这张卡片还没写内容'); return; }
+      crossCheckBtn.textContent = '想一想…';
+      const promptText = '以下是我读书时记的一个想法："' + c.content + '"。请你想一想，有没有其他领域或者其他时代的人也提出过类似的看法？如果有，说说这些独立视角的共识说明了什么；同时也说说这个观点大概在什么条件下会失效、不适用。不超过5句话，不要列点，像朋友聊天一样说。';
+      const res = await askAI(promptText);
+      if(res.ok && res.text){
+        c.crossCheck = res.text;
+        await saveData();
+        document.body.removeChild(overlay);
+        openCardModal(cardId);
+      } else {
+        crossCheckBtn.textContent = '没想出来：' + (res.error || '返回内容是空的');
+      }
+    }});
+    crossCheckBlock.appendChild(crossCheckBtn);
+    modal.appendChild(crossCheckBlock);
+  }
+
+  if(c.contextSnippet && c.contextSnippet.length){
+    const snippetBlock = el('div', {class:'detail-block'});
+    snippetBlock.appendChild(el('div', {class:'db-label', text:'当时的对话'}));
+    c.contextSnippet.forEach(m=>{
+      const line = el('div', {style:'margin-bottom:8px;font-size:13.5px;line-height:1.6;'});
+      const roleSpan = el('span', {text: m.role==='assistant' ? 'AI: ' : '我: ',
+        style:`font-family:'IBM Plex Mono',monospace;font-size:11px;color:${m.role==='assistant'?'var(--seal)':'var(--ink-soft)'};margin-right:4px;`});
+      line.appendChild(roleSpan);
+      line.appendChild(document.createTextNode(m.content));
+      snippetBlock.appendChild(line);
+    });
+    modal.appendChild(snippetBlock);
+  }
+
+  if(c.type==='lesson'){
     const block = el('div', {class:'detail-block'});
     block.appendChild(el('div', {class:'db-label', text:'实践结果'}));
     if(c.status==='validated' && c.practiceResult){
@@ -964,11 +1528,34 @@ function openCardModal(cardId){
     modal.appendChild(block);
   }
 
+  if(c.type==='question'){
+    const block = el('div', {class:'detail-block'});
+    block.appendChild(el('div', {class:'db-label', text:'想通了吗'}));
+    if(c.resolved && c.resolution){
+      block.appendChild(el('div', {class:'db-content', text:c.resolution}));
+    } else {
+      const ta = el('textarea', {attrs:{rows:3, placeholder:'后来想通了吗？写下你的答案…'}});
+      block.appendChild(ta);
+      block.appendChild(el('button', {class:'btn small', text:'标记已想通', style:'margin-top:8px;', onclick: async ()=>{
+        const text = ta.value.trim();
+        if(!text){ alert('写点什么再保存吧'); return; }
+        c.resolution = text;
+        c.resolved = true;
+        await saveData();
+        document.body.removeChild(overlay);
+        render();
+      }}));
+    }
+    modal.appendChild(block);
+  }
+
   const tagRow = el('div', {class:'card-tags', style:'margin-top:4px;'});
   (c.tags||[]).forEach(t=> tagRow.appendChild(el('span', {class:'tag-pill', text:t})));
   modal.appendChild(tagRow);
 
-  const footerRow = el('div', {style:'display:flex;justify-content:space-between;margin-top:20px;'});
+  modal.appendChild(el('button', {class:'btn secondary small', text:'发到 Obsidian', style:'margin-top:16px;', onclick:()=>sendToObsidian(c, book)}));
+
+  const footerRow = el('div', {style:'display:flex;justify-content:space-between;margin-top:16px;'});
   footerRow.appendChild(el('button', {class:'link-btn', text:'删除这张卡片', onclick: async ()=>{
     if(confirm('确定删除这张卡片吗？')){
       appData.cards = appData.cards.filter(x=>x.id!==cardId);
