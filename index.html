@@ -661,17 +661,14 @@ function openWereadLinkModal(book){
 
 function renderWereadBlock(book){
   const wrap = el('div', {style:'margin-bottom:20px;'});
-  const headRow = el('div', {style:'display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px;'});
-  headRow.appendChild(el('label', {text:'微信读书笔记', style:'margin-bottom:0;'}));
-  const actions = el('div', {style:'display:flex;gap:10px;'});
+  const headRow = el('div', {style:'display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;'});
   if(book.wereadBookId){
     const syncBtn = el('button', {class:'link-btn', text:'同步微信读书笔记', onclick: ()=>syncWereadNotes(book, syncBtn)});
-    actions.appendChild(syncBtn);
-    actions.appendChild(el('button', {class:'link-btn', text:'换一本关联', onclick:()=>openWereadLinkModal(book)}));
+    headRow.appendChild(syncBtn);
+    headRow.appendChild(el('button', {class:'link-btn', text:'换一本关联', onclick:()=>openWereadLinkModal(book)}));
   } else {
-    actions.appendChild(el('button', {class:'link-btn', text:'关联微信读书', onclick:()=>openWereadLinkModal(book)}));
+    headRow.appendChild(el('button', {class:'link-btn', text:'关联微信读书', onclick:()=>openWereadLinkModal(book)}));
   }
-  headRow.appendChild(actions);
   wrap.appendChild(headRow);
 
   if(book.wereadBookId){
@@ -997,15 +994,17 @@ function renderBookDetail(){
   wrap.appendChild(actionRow);
 
   const tabRow = el('div', {class:'tabs'});
-  const tabDefs = [['progress','进度'], ['material','参考材料'], ['records','记录（'+cards.length+'）']];
+  const tabDefs = [['progress','进度'], ['author','作者'], ['weread','微信读书笔记'], ['records','记录（'+cards.length+'）']];
   tabDefs.forEach(([key,label])=>{
     tabRow.appendChild(el('button', {class:'tab-btn'+(state.bookDetailTab===key?' active':''), text:label,
       onclick:()=>{state.bookDetailTab=key; render();}}));
   });
   wrap.appendChild(tabRow);
 
-  if(state.bookDetailTab==='material'){
-    wrap.appendChild(renderMaterialTab(book));
+  if(state.bookDetailTab==='author'){
+    wrap.appendChild(renderAuthorTab(book));
+  } else if(state.bookDetailTab==='weread'){
+    wrap.appendChild(renderWereadBlock(book));
   } else if(state.bookDetailTab==='records'){
     wrap.appendChild(renderRecordsTab(book, cards));
   } else {
@@ -1044,10 +1043,30 @@ function renderProgressTab(book, cards){
   }
   wrap.appendChild(rb);
 
+  const draftBlock = el('div', {style:'margin-bottom:20px;'});
+  draftBlock.appendChild(el('label', {text:'你的复述'}));
+  draftBlock.appendChild(el('div', {class:'hint', text:'读完这段，用自己的话简单说说讲了什么——这是检验有没有真正理解的最直接方式，也会在聊天过程中提供给AI参考。'}));
+  const draftTa = el('textarea', {attrs:{rows:3, placeholder:'这段讲的是…'}});
+  draftTa.value = book.draftNotes || '';
+  const draftSavedHint = el('span', {class:'hint', style:'margin-left:8px;opacity:0;transition:opacity .3s;', text:'已保存'});
+  let draftTimer = null;
+  draftTa.addEventListener('input', ()=>{
+    book.draftNotes = draftTa.value;
+    clearTimeout(draftTimer);
+    draftTimer = setTimeout(()=>{
+      saveData();
+      draftSavedHint.style.opacity = '1';
+      setTimeout(()=>{ draftSavedHint.style.opacity = '0'; }, 1500);
+    }, 600);
+  });
+  draftBlock.appendChild(draftTa);
+  draftBlock.appendChild(draftSavedHint);
+  wrap.appendChild(draftBlock);
+
   return wrap;
 }
 
-function renderMaterialTab(book){
+function renderAuthorTab(book){
   const wrap = el('div');
 
   const authorBlock = el('div', {style:'margin-bottom:16px;padding:12px 14px;border-radius:8px;background:var(--paper-raised);border:1px solid var(--line);'});
@@ -1074,28 +1093,6 @@ function renderMaterialTab(book){
     authorBlock.appendChild(authorBtn);
     wrap.appendChild(authorBlock);
   }
-
-  const draftBlock = el('div', {style:'margin-bottom:20px;'});
-  draftBlock.appendChild(el('label', {text:'整理这次读的内容'}));
-  draftBlock.appendChild(el('div', {class:'hint', text:'这里的内容会在整个聊天过程中一直提供给AI参考，让AI的问题贴合你实际读的内容。主要用于纸质书（翻回折角/书签的那几页，写几个关键词）——电子书优先用下面的"微信读书笔记"自动同步，不用在这里重复粘贴。'}));
-  const draftTa = el('textarea', {attrs:{rows:3, placeholder:'翻书后写的几个关键词…'}});
-  draftTa.value = book.draftNotes || '';
-  const draftSavedHint = el('span', {class:'hint', style:'margin-left:8px;opacity:0;transition:opacity .3s;', text:'已保存'});
-  let draftTimer = null;
-  draftTa.addEventListener('input', ()=>{
-    book.draftNotes = draftTa.value;
-    clearTimeout(draftTimer);
-    draftTimer = setTimeout(()=>{
-      saveData();
-      draftSavedHint.style.opacity = '1';
-      setTimeout(()=>{ draftSavedHint.style.opacity = '0'; }, 1500);
-    }, 600);
-  });
-  draftBlock.appendChild(draftTa);
-  draftBlock.appendChild(draftSavedHint);
-  wrap.appendChild(draftBlock);
-
-  wrap.appendChild(renderWereadBlock(book));
 
   return wrap;
 }
