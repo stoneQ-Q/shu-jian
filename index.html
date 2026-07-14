@@ -227,12 +227,9 @@ const TYPE_META = {
 };
 
 const INSIGHT_META = {
-  concept:{label:'概念', char:'概', hex:'#5B6B7C', desc:'一个概念，你现在有了自己的理解'},
-  story:{label:'故事', char:'事', hex:'#8C6A4F', desc:'你的某段经历，被这段内容照见了'},
-  flash:{label:'闪回', char:'光', hex:'#C99A3A', desc:'经历和内容对上的瞬间，冒出新认识'},
-  resonance:{label:'共振', char:'感', hex:'#B23A2E', desc:'单纯被打动、戳中的一刻'},
+  excerpt:{label:'摘录', char:'摘', hex:'#5B6B7C', desc:'一句话、一个片段，先记下来再说'},
   lesson:{label:'心得', char:'用', hex:'#4A6741', desc:'能直接用在生活/工作里的方法或判断'},
-  question:{label:'悬题', char:'问', hex:'#6B5B95', desc:'现在还没想通，想带着往下走的问题'}
+  question:{label:'疑问', char:'问', hex:'#6B5B95', desc:'现在还没想通，想带着往下走的问题'}
 };
 
 const TAG_OPTIONS = ['工作','带娃','创作','学习','决策','人际','其他'];
@@ -268,6 +265,7 @@ let state = {
   librarySearch:'',
   session:null,
   recallRevealed:false,
+  bookDetailTab:'progress',
   showSettings:false,
   showInsightCapture:false,
   insightTypeDraft:null,
@@ -466,7 +464,7 @@ function sanitizeFileName(name){
 }
 
 function buildObsidianNote(card, book){
-  const meta = INSIGHT_META[card.type] || INSIGHT_META.concept;
+  const meta = INSIGHT_META[card.type] || INSIGHT_META.excerpt;
   const dateStr = new Date(card.createdAt).toISOString().slice(0,10);
   const bookTitle = book ? book.title : '未命名';
   const noteName = sanitizeFileName(bookTitle);
@@ -526,7 +524,7 @@ async function quickCaptureWereadNote(note, book){
   const content = note.reviewContent || note.markText;
   if(!content) return;
   const card = {
-    id: uid(), bookId: book.id, type:'concept', content,
+    id: uid(), bookId: book.id, type:'excerpt', content,
     tags: [], contextSnippet: [], createdAt: Date.now()
   };
   appData.cards.push(card);
@@ -879,7 +877,7 @@ function renderHome(){
     books.forEach(b=>{
       const cardCount = appData.cards.filter(c=>c.bookId===b.id).length;
       const meta = TYPE_META[b.type];
-      const row = el('div', {class:'book-row', onclick:()=>{state.currentBookId=b.id; state.recallRevealed=false; state.view='bookDetail'; render();}});
+      const row = el('div', {class:'book-row', onclick:()=>{state.currentBookId=b.id; state.recallRevealed=false; state.bookDetailTab='progress'; state.view='bookDetail'; render();}});
       row.appendChild(el('div', {class:'spine', style:`background:${meta.hex};`}));
       const info = el('div', {class:'info'});
       info.appendChild(el('div', {class:'title', text:b.title}));
@@ -907,7 +905,7 @@ function renderHome(){
 }
 
 function renderCardMini(c){
-  const meta = INSIGHT_META[c.type] || INSIGHT_META.concept;
+  const meta = INSIGHT_META[c.type] || INSIGHT_META.excerpt;
   const book = appData.books.find(b=>b.id===c.bookId);
   const card = el('div', {class:'index-card', onclick:()=>openCardModal(c.id)});
   const top = el('div', {class:'card-top'});
@@ -991,14 +989,66 @@ function renderBookDetail(){
   headRow.appendChild(el('div', {class:'seal-badge', text:meta.char, style:`border-color:${meta.hex};color:${meta.hex};width:28px;height:28px;font-size:13px;`}));
   headRow.appendChild(el('h2', {text:book.title, style:'font-size:22px;'}));
   wrap.appendChild(headRow);
-  wrap.appendChild(el('div', {class:'eyebrow', text:meta.label+(book.author?' · '+book.author:'')+' · '+cards.length+' 条记录', style:'margin-bottom:20px;'}));
+  wrap.appendChild(el('div', {class:'eyebrow', text:meta.label+(book.author?' · '+book.author:'')+' · '+cards.length+' 条记录', style:'margin-bottom:16px;'}));
 
-  if(book.progress){
-    const progressBlock = el('div', {style:'margin-bottom:16px;padding:12px 14px;border-radius:8px;background:var(--paper-raised);border:1px solid var(--line);'});
-    progressBlock.appendChild(el('div', {class:'db-label', text:'读到哪了'}));
-    progressBlock.appendChild(el('div', {class:'db-content', text:book.progress}));
-    wrap.appendChild(progressBlock);
+  const actionRow = el('div', {style:'display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;'});
+  actionRow.appendChild(el('button', {class:'btn seal', text:'开始聊聊', onclick:()=>startSession(book.id)}));
+  actionRow.appendChild(el('button', {class:'btn secondary', text:'用这本书聊聊眼下的事', onclick:()=>openReverseApplyModal(book)}));
+  wrap.appendChild(actionRow);
+
+  const tabRow = el('div', {class:'tabs'});
+  const tabDefs = [['progress','进度'], ['material','参考材料'], ['records','记录（'+cards.length+'）']];
+  tabDefs.forEach(([key,label])=>{
+    tabRow.appendChild(el('button', {class:'tab-btn'+(state.bookDetailTab===key?' active':''), text:label,
+      onclick:()=>{state.bookDetailTab=key; render();}}));
+  });
+  wrap.appendChild(tabRow);
+
+  if(state.bookDetailTab==='material'){
+    wrap.appendChild(renderMaterialTab(book));
+  } else if(state.bookDetailTab==='records'){
+    wrap.appendChild(renderRecordsTab(book, cards));
+  } else {
+    wrap.appendChild(renderProgressTab(book, cards));
   }
+
+  return wrap;
+}
+
+function renderProgressTab(book, cards){
+  const wrap = el('div');
+
+  const rb = el('div', {class:'recall-box'});
+  rb.appendChild(el('div', {class:'rb-title', text:'读到哪了'}));
+  if(book.progress || cards.length>0){
+    rb.appendChild(el('div', {class:'hint', text:'不看下面，凭记忆写一句大概读到哪、聊到了什么——写不出来也没关系，写的过程本身就是在巩固记忆。'}));
+    const ta = el('textarea', {attrs:{rows:2, placeholder:'我记得读到了…'}});
+    rb.appendChild(ta);
+    if(!state.recallRevealed){
+      rb.appendChild(el('button', {class:'link-btn', text:'揭晓', style:'margin-top:8px;', onclick:()=>{state.recallRevealed=true; render();}}));
+    } else {
+      const panel = el('div', {class:'reveal-panel'});
+      if(book.progress){
+        panel.appendChild(el('div', {class:'db-label', text:'目前进度'}));
+        panel.appendChild(el('div', {class:'db-content', text:book.progress}));
+      } else {
+        const last = cards[0];
+        const lastMeta = INSIGHT_META[last.type] || INSIGHT_META.excerpt;
+        panel.appendChild(el('div', {class:'db-label', text:'上次记的（'+lastMeta.label+'）'}));
+        panel.appendChild(el('div', {class:'db-content', text:last.content||'（未填写）'}));
+      }
+      rb.appendChild(panel);
+    }
+  } else {
+    rb.appendChild(el('div', {class:'hint', text:'开始聊聊之后，这里会自动积累这本书读到哪、聊到了什么。'}));
+  }
+  wrap.appendChild(rb);
+
+  return wrap;
+}
+
+function renderMaterialTab(book){
+  const wrap = el('div');
 
   const authorBlock = el('div', {style:'margin-bottom:16px;padding:12px 14px;border-radius:8px;background:var(--paper-raised);border:1px solid var(--line);'});
   if(book.authorNotes){
@@ -1025,80 +1075,52 @@ function renderBookDetail(){
     wrap.appendChild(authorBlock);
   }
 
-  if(cards.length>0){
-    const rb = el('div', {class:'recall-box'});
-    rb.appendChild(el('div', {class:'rb-title', text:'继续之前，先回忆一下'}));
-    rb.appendChild(el('div', {class:'hint', text:'不看下面，凭记忆写一句上次记的内容——写不出来也没关系，写的过程本身就是在巩固记忆。'}));
-    const ta = el('textarea', {attrs:{rows:2, placeholder:'我记得上次记的是…'}});
-    rb.appendChild(ta);
-    if(!state.recallRevealed){
-      rb.appendChild(el('button', {class:'link-btn', text:'揭晓上次的记录', style:'margin-top:8px;', onclick:()=>{state.recallRevealed=true; render();}}));
-    } else {
-      const last = cards[0];
-      const lastMeta = INSIGHT_META[last.type] || INSIGHT_META.concept;
-      const panel = el('div', {class:'reveal-panel'});
-      panel.appendChild(el('div', {class:'db-label', text:'上次记的（'+lastMeta.label+'）'}));
-      panel.appendChild(el('div', {class:'db-content', text:last.content||'（未填写）'}));
-      rb.appendChild(panel);
-    }
-    wrap.appendChild(rb);
-  }
-
   const draftBlock = el('div', {style:'margin-bottom:20px;'});
-  draftBlock.appendChild(el('label', {text:'整理这次读的内容（读的时候不用管这个页面）'}));
-  draftBlock.appendChild(el('div', {class:'hint', text:'微信读书：去"我"→"笔记"选这本书，复制划线和想法，粘贴在下面。纸质书：翻回你折角/夹书签的那几页，凭这些提示写几个词就行——或者直接开始聊天后用拍照。开始聊天时会自动带出来当开场的由头。'}));
-  const draftTa = el('textarea', {attrs:{rows:3, placeholder:'粘贴微信读书划线，或翻书后写的几个关键词…'}});
+  draftBlock.appendChild(el('label', {text:'整理这次读的内容'}));
+  draftBlock.appendChild(el('div', {class:'hint', text:'这里的内容会在整个聊天过程中一直提供给AI参考，让AI的问题贴合你实际读的内容。主要用于纸质书（翻回折角/书签的那几页，写几个关键词）——电子书优先用下面的"微信读书笔记"自动同步，不用在这里重复粘贴。'}));
+  const draftTa = el('textarea', {attrs:{rows:3, placeholder:'翻书后写的几个关键词…'}});
   draftTa.value = book.draftNotes || '';
+  const draftSavedHint = el('span', {class:'hint', style:'margin-left:8px;opacity:0;transition:opacity .3s;', text:'已保存'});
   let draftTimer = null;
   draftTa.addEventListener('input', ()=>{
     book.draftNotes = draftTa.value;
     clearTimeout(draftTimer);
-    draftTimer = setTimeout(()=>{ saveData(); }, 600);
+    draftTimer = setTimeout(()=>{
+      saveData();
+      draftSavedHint.style.opacity = '1';
+      setTimeout(()=>{ draftSavedHint.style.opacity = '0'; }, 1500);
+    }, 600);
   });
   draftBlock.appendChild(draftTa);
+  draftBlock.appendChild(draftSavedHint);
   wrap.appendChild(draftBlock);
 
   wrap.appendChild(renderWereadBlock(book));
 
-  const actionRow = el('div', {style:'display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;'});
-  actionRow.appendChild(el('button', {class:'btn seal', text:'开始聊聊', onclick:()=>startSession(book.id)}));
-  actionRow.appendChild(el('button', {class:'btn secondary', text:'用这本书聊聊眼下的事', onclick:()=>openReverseApplyModal(book)}));
-  wrap.appendChild(actionRow);
+  return wrap;
+}
 
-  wrap.appendChild(el('h2', {text:'这本书的记录', style:'font-size:16px;margin-bottom:12px;'}));
+function renderRecordsTab(book, cards){
+  const wrap = el('div');
   if(cards.length===0){
     wrap.appendChild(el('div', {class:'empty-state', text:'还没有记录，开始第一次聊聊吧。'}));
   } else {
     cards.forEach(c=> wrap.appendChild(renderCardMini(c)));
   }
-
   return wrap;
 }
 
 function startSession(bookId){
   const book = appData.books.find(b=>b.id===bookId);
-  state.session = {bookId, type:book.type, messages:[], loading:false, checkIndex:0, awaitingSelfNote:true};
+  state.session = {bookId, type:book.type, messages:[], loading:false, checkIndex:0};
   state.view = 'session';
   render();
+  openSessionConversation(book);
 }
 
 async function openSessionConversation(book){
   const s = state.session;
-  if(s.selfNote){
-    s.messages.push({role:'user', content: s.selfNote});
-    render();
-    scrollChatToBottom();
-    if(settings.proxyUrl){
-      s.loading = true; render();
-      const promptText = buildChatPrompt(s.type, s.messages, book);
-      if(markWereadConsumed(book)) saveData();
-      const res = await askAI(promptText);
-      s.loading = false;
-      s.messages.push({role:'assistant', content: res.ok && res.text ? res.text : OPENING_STATIC[book.type]});
-    } else {
-      s.messages.push({role:'check', content:'没配置代理，先记着这段自己的想法，读完可以点"记一下"存住。'});
-    }
-  } else if(settings.proxyUrl){
+  if(settings.proxyUrl){
     s.loading = true; render();
     const hasNewWeread = pendingWereadNotes(book).length > 0;
     const context = (book.progress ? ('上次聊到的进度："' + book.progress + '"。') : '') +
@@ -1109,7 +1131,6 @@ async function openSessionConversation(book){
       : (book.progress ? '请你接着上次的进度，用一句自然的问题邀请对方继续讲讲，不超过两句话，不要说"你好"这类客套话，直接问。'
         : '请你用一句自然的开场问题，邀请对方把刚读的内容讲给你听，不超过两句话，不要说"你好"这类客套话，直接问。');
     const promptText = SYSTEM_PROMPTS[book.type] + '\n\n' + context + instruction;
-    if(markWereadConsumed(book)) saveData();
     const res = await askAI(promptText);
     s.loading = false;
     s.messages.push({role:'assistant', content: res.ok && res.text ? res.text : OPENING_STATIC[book.type]});
@@ -1159,11 +1180,15 @@ function endSession(){
   const s = state.session;
   const book = appData.books.find(b=>b.id===s.bookId);
   const realMessages = s.messages.filter(m=>m.role==='user'||m.role==='assistant');
-  if(book && settings.proxyUrl && realMessages.length>=2){
-    updateBookProgress(book, s);
+  if(book){
+    if(markWereadConsumed(book)) saveData();
+    if(settings.proxyUrl && realMessages.length>=2){
+      updateBookProgress(book, s);
+    }
   }
   state.session = null;
   state.view = 'bookDetail';
+  state.bookDetailTab = 'progress';
   render();
 }
 
@@ -1196,30 +1221,6 @@ function renderSession(){
 
   wrap.appendChild(backLink('结束聊天', endSession));
   wrap.appendChild(el('div', {class:'eyebrow', text:book.title+' · '+meta.label, style:'margin-bottom:14px;'}));
-
-  if(s.awaitingSelfNote){
-    const panel = el('div', {class:'recall-box'});
-    panel.appendChild(el('div', {class:'rb-title', text:'先自己想想，再让AI追问'}));
-    panel.appendChild(el('div', {class:'hint', text:'带着问题读效果更好。花10秒写写你自己的理解或疑问，AI会直接针对这个来问——留空也可以直接跳过。'}));
-    const selfTa = el('textarea', {attrs:{rows:2, placeholder:'我觉得这段讲的是…／我没搞懂的是…'}});
-    panel.appendChild(selfTa);
-    const btnRow = el('div', {style:'display:flex;gap:10px;margin-top:10px;'});
-    btnRow.appendChild(el('button', {class:'btn seal small', text:'开始聊', onclick:()=>{
-      s.awaitingSelfNote = false;
-      s.selfNote = selfTa.value.trim();
-      render();
-      openSessionConversation(book);
-    }}));
-    btnRow.appendChild(el('button', {class:'link-btn', text:'跳过，直接聊', onclick:()=>{
-      s.awaitingSelfNote = false;
-      s.selfNote = '';
-      render();
-      openSessionConversation(book);
-    }}));
-    panel.appendChild(btnRow);
-    wrap.appendChild(panel);
-    return wrap;
-  }
 
   const chatBox = el('div', {class:'chat-box'});
   s.messages.forEach(m=>{
@@ -1488,7 +1489,7 @@ function openCardModal(cardId){
   const c = appData.cards.find(x=>x.id===cardId);
   if(!c) return;
   const book = appData.books.find(b=>b.id===c.bookId);
-  const meta = INSIGHT_META[c.type] || INSIGHT_META.concept;
+  const meta = INSIGHT_META[c.type] || INSIGHT_META.excerpt;
   const overlay = el('div', {class:'overlay-back'});
   const modal = el('div', {class:'modal'});
 
