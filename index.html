@@ -1100,12 +1100,15 @@ async function openSessionConversation(book){
     }
   } else if(settings.proxyUrl){
     s.loading = true; render();
+    const hasNewWeread = pendingWereadNotes(book).length > 0;
     const context = (book.progress ? ('上次聊到的进度："' + book.progress + '"。') : '') +
       (book.draftNotes ? ('用户读书时记的碎片："' + book.draftNotes + '"。') : '') +
       wereadAnchorText(book);
-    const promptText = SYSTEM_PROMPTS[book.type] + '\n\n' + context +
-      (book.progress ? '请你接着上次的进度，用一句自然的问题邀请对方继续讲讲，不超过两句话，不要说"你好"这类客套话，直接问。'
+    const instruction = hasNewWeread
+      ? '对方刚从微信读书同步了上面这批划线/笔记，请你挑其中最有意思的一段，用一句自然的问题邀请对方聊聊这一段具体讲了什么、他怎么看，不超过两句话，不要总结，不要说"你好"这类客套话，直接问。'
+      : (book.progress ? '请你接着上次的进度，用一句自然的问题邀请对方继续讲讲，不超过两句话，不要说"你好"这类客套话，直接问。'
         : '请你用一句自然的开场问题，邀请对方把刚读的内容讲给你听，不超过两句话，不要说"你好"这类客套话，直接问。');
+    const promptText = SYSTEM_PROMPTS[book.type] + '\n\n' + context + instruction;
     if(markWereadConsumed(book)) saveData();
     const res = await askAI(promptText);
     s.loading = false;
